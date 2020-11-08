@@ -16,6 +16,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val job: Job = CoroutineScope(Dispatchers.IO).launch {
             //Use API Funcions here
+            var team = restApiService.getTeam(2)
+            nameField.post(Runnable { nameField.setText(team.name) })
         }
         job.start()
         if(job.isCompleted){

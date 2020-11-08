@@ -79,11 +79,11 @@ class RestApiService constructor(address :String?, apiK: String?) {
         val teamDataClassList: List<TeamSnippetDataClass> = parser.fromJson(stringLoad, listTutorialType)
         return teamDataClassList
     }
-/*
+
     fun getTeam(teamId: Int) : TeamDataClass{
-        val stringLoad = this.getJSONString("teams/team/1")
+        val stringLoad = this.getJSONString("teams/"+teamId.toString())
         val parser = Gson()
         val teamObject = parser.fromJson(stringLoad, TeamDataClass::class.java)
         return teamObject
-    }*/
+    }
 }
