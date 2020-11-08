@@ -3,6 +3,8 @@ package pw.wpam.polityper
 import android.net.Uri
 import android.util.Log
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import kotlinx.android.synthetic.main.activity_main.*
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -70,6 +72,18 @@ class RestApiService constructor(address :String?, apiK: String?) {
         return jsonString
     }
 
-
-
+    fun getTeamSnippetsList() : List<TeamSnippetDataClass>{
+        val stringLoad = this.getJSONString("teams")
+        val parser = Gson()
+        val listTutorialType = object : TypeToken<List<TeamSnippetDataClass>>() {}.type
+        val teamDataClassList: List<TeamSnippetDataClass> = parser.fromJson(stringLoad, listTutorialType)
+        return teamDataClassList
+    }
+/*
+    fun getTeam(teamId: Int) : TeamDataClass{
+        val stringLoad = this.getJSONString("teams/team/1")
+        val parser = Gson()
+        val teamObject = parser.fromJson(stringLoad, TeamDataClass::class.java)
+        return teamObject
+    }*/
 }
