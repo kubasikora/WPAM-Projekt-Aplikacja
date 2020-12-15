@@ -1,8 +1,7 @@
 package pw.wpam.polityper
 
-data class TeamDataClass(
+class LeagueDataClass(
         val id: Int,
         val name: String,
-        val sport: String
-) {
-}
+        val created: String
+){}

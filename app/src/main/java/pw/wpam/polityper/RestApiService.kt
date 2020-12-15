@@ -67,10 +67,10 @@ class RestApiService constructor(address :String?, apiK: String?) {
     }
 
     fun getTeamSnippetsList() : List<TeamSnippetDataClass>{
-        val stringLoad = this.getJSONString("teams")
+        val stringLoad = this.getJSONString("teams/contestants")
         val parser = Gson()
-        val listTutorialType = object : TypeToken<List<TeamSnippetDataClass>>() {}.type
-        val teamDataClassList: List<TeamSnippetDataClass> = parser.fromJson(stringLoad, listTutorialType)
+        val listType = object : TypeToken<List<TeamSnippetDataClass>>() {}.type
+        val teamDataClassList: List<TeamSnippetDataClass> = parser.fromJson(stringLoad, listType)
         return teamDataClassList
     }
 
@@ -79,5 +79,12 @@ class RestApiService constructor(address :String?, apiK: String?) {
         val parser = Gson()
         val teamObject = parser.fromJson(stringLoad, TeamDataClass::class.java)
         return teamObject
+    }
+
+    fun getLeagues(leagueId: Int) : LeagueDataClass{
+        val stringLoad = this.getJSONString("betting/leagues/"+leagueId.toString())
+        val parser = Gson()
+        val leagueObject = parser.fromJson(stringLoad, LeagueDataClass::class.java)
+        return leagueObject
     }
 }

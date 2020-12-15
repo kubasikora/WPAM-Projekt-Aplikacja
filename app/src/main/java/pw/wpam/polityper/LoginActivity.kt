@@ -11,7 +11,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
     loginButton.setOnClickListener{
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, AvailableLeaguesActivity::class.java)
         startActivity(intent)
     }
 }
