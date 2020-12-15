@@ -2,11 +2,9 @@ package pw.wpam.polityper
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
-import pw.wpam.polityper.RegisterActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,8 +14,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val job: Job = CoroutineScope(Dispatchers.IO).launch {
             //Use API Funcions here
-            var team = restApiService.getTeam(2)
-            nameField.post(Runnable { nameField.setText(team.name) })
         }
         job.start()
         if(job.isCompleted){
@@ -28,5 +24,9 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
             }
+        logInButton.setOnClickListener{
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
