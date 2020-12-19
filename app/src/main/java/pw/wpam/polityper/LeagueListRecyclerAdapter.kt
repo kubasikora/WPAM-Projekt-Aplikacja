@@ -1,6 +1,8 @@
 package pw.wpam.polityper
 
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,18 +11,18 @@ import androidx.recyclerview.widget.RecyclerView
 import pw.wpam.polityper.models.LeagueHeader
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import kotlinx.android.synthetic.main.recycler_view_item.view.*
+import kotlinx.android.synthetic.main.recycler_view_league.view.*
 import kotlin.collections.ArrayList
 
 
-class LeagueListRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
+class LeagueListRecyclerAdapter(var mContext:Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>()
 {
 
     private var items: List<LeagueHeader> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return LeagueViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_item, parent, false)
+                LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_league, parent, false)
         )
     }
 
@@ -42,7 +44,7 @@ class LeagueListRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
         items = leagueList
     }
 
-    class LeagueViewHolder
+    inner class LeagueViewHolder
     constructor(
             itemView: View
     ): RecyclerView.ViewHolder(itemView){
@@ -55,6 +57,7 @@ class LeagueListRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
             itemView.setOnClickListener {
                 val position:Int = adapterPosition
                 Toast.makeText(itemView.context,"You clicked on item # ${position + 1}", Toast.LENGTH_SHORT).show()
+                mContext.startActivity(Intent(mContext, BettingActivity::class.java))
             }
         }
 

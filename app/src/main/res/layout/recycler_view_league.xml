@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardElevation="10dp"
     app:cardCornerRadius="2dp"
-    app:cardPreventCornerOverlap="false"
-    >
+    app:cardElevation="10dp"
+    app:cardPreventCornerOverlap="false">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?selectableItemBackground">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/icon"
@@ -47,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Puchar myszki Miki"
-                android:textColor="#000"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="19sp" />
 
             <TextView

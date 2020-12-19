@@ -5,31 +5,30 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_available_leagues.*
 
-class AvailableLeaguesActivity : AppCompatActivity() {
+class BettingActivity : AppCompatActivity() {
 
-    private lateinit var leagueListAdapter: LeagueListRecyclerAdapter
+    private lateinit var betListAdapter: BetsListRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_available_leagues)
+        setContentView(R.layout.activity_betting)
 
         initRecyclerView()
         addDataSet()
     }
 
     private fun addDataSet(){
-        val data = DataSource.createDataSet()
-        leagueListAdapter.submitList(data)
+        val data = DataSourceBetting.createDataSet()
+        betListAdapter.submitList(data)
     }
 
     private fun initRecyclerView(){
         recycler_view.apply {
-            layoutManager = LinearLayoutManager(this@AvailableLeaguesActivity)
+            layoutManager = LinearLayoutManager(this@BettingActivity)
             val topSpacingDecorator = TopSpacingItemDecoration(30)
             addItemDecoration(topSpacingDecorator)
-            leagueListAdapter = LeagueListRecyclerAdapter(this@AvailableLeaguesActivity)
-            adapter = leagueListAdapter
+            betListAdapter = BetsListRecyclerAdapter()
+            adapter = betListAdapter
         }
     }
-
 }
