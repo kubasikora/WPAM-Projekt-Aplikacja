@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_available_leagues.*
+import pw.wpam.polityper.adapters.BetsListRecyclerAdapter
+import pw.wpam.polityper.adapters.TopSpacingItemDecoration
 
 class BettingActivity : AppCompatActivity() {
 

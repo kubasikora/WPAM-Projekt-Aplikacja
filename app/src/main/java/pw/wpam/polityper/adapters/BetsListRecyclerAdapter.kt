@@ -1,4 +1,4 @@
-package pw.wpam.polityper
+package pw.wpam.polityper.adapters
 
 
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recycler_view_bet.view.*
+import pw.wpam.polityper.R
 import pw.wpam.polityper.models.GameBetHeader
 import kotlin.collections.ArrayList
 

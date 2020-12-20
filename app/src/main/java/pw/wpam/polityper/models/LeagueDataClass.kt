@@ -1,4 +1,4 @@
-package pw.wpam.polityper
+package pw.wpam.polityper.models
 
 class LeagueDataClass(
         val id: Int,

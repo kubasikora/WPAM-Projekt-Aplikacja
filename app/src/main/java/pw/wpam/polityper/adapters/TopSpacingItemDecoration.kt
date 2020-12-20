@@ -1,4 +1,4 @@
-package pw.wpam.polityper
+package pw.wpam.polityper.adapters
 
 import android.graphics.Rect
 import android.view.View

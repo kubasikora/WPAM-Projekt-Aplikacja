@@ -5,6 +5,9 @@ import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.json.JSONException
+import pw.wpam.polityper.models.LeagueDataClass
+import pw.wpam.polityper.models.TeamDataClass
+import pw.wpam.polityper.models.TeamSnippetDataClass
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.net.URL
@@ -74,14 +77,14 @@ class RestApiService constructor(address :String?, apiK: String?) {
         return teamDataClassList
     }
 
-    fun getTeam(teamId: Int) : TeamDataClass{
+    fun getTeam(teamId: Int) : TeamDataClass {
         val stringLoad = this.getJSONString("teams/"+teamId.toString())
         val parser = Gson()
         val teamObject = parser.fromJson(stringLoad, TeamDataClass::class.java)
         return teamObject
     }
 
-    fun getLeagues(leagueId: Int) : LeagueDataClass{
+    fun getLeague(leagueId: Int) : LeagueDataClass {
         val stringLoad = this.getJSONString("betting/leagues/"+leagueId.toString())
         val parser = Gson()
         val leagueObject = parser.fromJson(stringLoad, LeagueDataClass::class.java)

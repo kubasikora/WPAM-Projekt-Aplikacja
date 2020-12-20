@@ -1,4 +1,4 @@
-package pw.wpam.polityper
+package pw.wpam.polityper.adapters
 
 
 import android.content.Context
@@ -12,6 +12,8 @@ import pw.wpam.polityper.models.LeagueHeader
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.recycler_view_league.view.*
+import pw.wpam.polityper.BettingActivity
+import pw.wpam.polityper.R
 import kotlin.collections.ArrayList
 
 
@@ -55,8 +57,6 @@ class LeagueListRecyclerAdapter(var mContext:Context) : RecyclerView.Adapter<Rec
 
         init {
             itemView.setOnClickListener {
-                val position:Int = adapterPosition
-                Toast.makeText(itemView.context,"You clicked on item # ${position + 1}", Toast.LENGTH_SHORT).show()
                 mContext.startActivity(Intent(mContext, BettingActivity::class.java))
             }
         }

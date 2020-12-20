@@ -1,4 +1,4 @@
-package pw.wpam.polityper
+package pw.wpam.polityper.models
 
 data class TeamDataClass(
         val id: Int,
