@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import pw.wpam.polityper.services.AuthService
+import pw.wpam.polityper.services.ContestantService
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         Log.d("TAG","dupa")
 
         AuthService.loginUser(this,"admin", "admin")
+        ContestantService.getAllContestants(this)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

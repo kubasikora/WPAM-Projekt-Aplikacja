@@ -7,8 +7,11 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.google.gson.Gson
+import pw.wpam.polityper.models.LoginResponse
 
 object AuthService {
+    val gson = Gson()
 
     fun loginUser(context: Context, username: String, password: String) {
         val queue = Volley.newRequestQueue(context)
@@ -21,7 +24,9 @@ object AuthService {
 
         val loginRequest = object : JsonObjectRequest(Request.Method.POST, url, jsonBody,
             Response.Listener { response ->
-                Log.d("INFO", response.toString())
+                val login = gson.fromJson(response.toString(), LoginResponse::class.java)
+                Log.d("INFO", login.token)
+                Log.d("INFO", login.user.id.toString())
             },
             Response.ErrorListener { error ->
                 Log.d("ERROR", error.toString())
