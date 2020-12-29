@@ -1,7 +1,9 @@
 package pw.wpam.polityper.services
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
+import com.android.volley.DefaultRetryPolicy
 import org.json.JSONObject
 import com.android.volley.Request
 import com.android.volley.Response
@@ -15,7 +17,7 @@ object AuthService {
 
     fun loginUser(context: Context, username: String, password: String) {
         val queue = Volley.newRequestQueue(context)
-        val urlBase = "https://wpamprojekt-dev.herokuapp.com"
+        val urlBase = "https://wpamprojekt-prod.herokuapp.com"
         val url = "${urlBase}/auth/login/"
 
         val jsonBody = JSONObject()
@@ -27,6 +29,11 @@ object AuthService {
                 val login = gson.fromJson(response.toString(), LoginResponse::class.java)
                 Log.d("INFO", login.token)
                 Log.d("INFO", login.user.id.toString())
+                val sharedPref = context?.getSharedPreferences("auth", Context.MODE_PRIVATE)
+                with(sharedPref.edit()){
+                    putString("jwt", login.token)
+                    apply()
+                }
             },
             Response.ErrorListener { error ->
                 Log.d("ERROR", error.toString())
@@ -36,6 +43,12 @@ object AuthService {
                 return "application/json; charset=utf-8"
             }
         }
+
+        loginRequest.retryPolicy = DefaultRetryPolicy(
+            60000,
+            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        );
 
        queue.add(loginRequest)
     }

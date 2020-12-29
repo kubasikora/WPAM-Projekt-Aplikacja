@@ -12,11 +12,7 @@ import pw.wpam.polityper.services.ContestantService
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val restApiService = RestApiService("https://wpamprojekt-dev.herokuapp.com/api/","users")
-        Log.d("TAG","dupa")
-
         AuthService.loginUser(this,"admin", "admin")
-        ContestantService.getAllContestants(this)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
