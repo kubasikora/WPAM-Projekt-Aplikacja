@@ -1,6 +1,8 @@
 package pw.wpam.polityper.services
 
 import android.content.Context
+import android.content.res.Resources
+import android.provider.Settings.Global.getString
 import android.util.Log
 import com.android.volley.Request
 import com.android.volley.Response
@@ -9,6 +11,7 @@ import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import pw.wpam.polityper.models.Contestant
 import com.android.volley.DefaultRetryPolicy
+import pw.wpam.polityper.R
 
 
 object ContestantService {
@@ -16,7 +19,7 @@ object ContestantService {
 
     fun getAllContestants(context: Context) {
         val queue = Volley.newRequestQueue(context)
-        val urlBase = "https://wpamprojekt-prod.herokuapp.com"
+        val urlBase = context.getString(R.string.be_url)
         val url = "${urlBase}/api/teams/contestants"
 
         val sharedPref = context?.getSharedPreferences("auth", Context.MODE_PRIVATE)

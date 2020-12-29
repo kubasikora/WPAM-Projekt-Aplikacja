@@ -10,6 +10,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
+import pw.wpam.polityper.R
 import pw.wpam.polityper.models.LoginResponse
 
 object AuthService {
@@ -17,7 +18,7 @@ object AuthService {
 
     fun loginUser(context: Context, username: String, password: String) {
         val queue = Volley.newRequestQueue(context)
-        val urlBase = "https://wpamprojekt-prod.herokuapp.com"
+        val urlBase = context.getString(R.string.be_url)
         val url = "${urlBase}/auth/login/"
 
         val jsonBody = JSONObject()
