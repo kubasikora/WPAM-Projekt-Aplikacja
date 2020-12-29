@@ -6,11 +6,16 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
+import pw.wpam.polityper.services.AuthService
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val restApiService = RestApiService("https://wpamprojekt-dev.herokuapp.com/api/","users")
+        Log.d("TAG","dupa")
+
+        AuthService.loginUser(this,"admin", "admin")
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val job: Job = CoroutineScope(Dispatchers.IO).launch {
