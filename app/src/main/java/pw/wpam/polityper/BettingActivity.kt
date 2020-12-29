@@ -2,10 +2,10 @@ package pw.wpam.polityper
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_available_leagues.*
+import kotlinx.android.synthetic.main.activity_betting.*
 import pw.wpam.polityper.adapters.BetsListRecyclerAdapter
-import pw.wpam.polityper.adapters.TopSpacingItemDecoration
+import pw.wpam.polityper.adapters.ViewPageAdapter
+import pw.wpam.polityper.fragments.BetsFragment
 
 class BettingActivity : AppCompatActivity() {
 
@@ -15,22 +15,18 @@ class BettingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_betting)
 
-        initRecyclerView()
-        addDataSet()
+        setUpTabs()
     }
 
-    private fun addDataSet(){
-        val data = DataSourceBetting.createDataSet()
-        betListAdapter.submitList(data)
+    private fun setUpTabs(){
+        val adapter = ViewPageAdapter(supportFragmentManager)
+        adapter.addFragment(BetsFragment(),"Betting")
+        adapter.addFragment(BetsFragment(), "Leaderboard")
+        viewPager.adapter = adapter
+        tabs.setupWithViewPager(viewPager)
+
+        tabs.getTabAt(0)!!.setIcon(R.drawable.ic_baseline_sports_24)
+        tabs.getTabAt(1)!!.setIcon(R.drawable.ic_baseline_group_24)
     }
 
-    private fun initRecyclerView(){
-        recycler_view.apply {
-            layoutManager = LinearLayoutManager(this@BettingActivity)
-            val topSpacingDecorator = TopSpacingItemDecoration(30)
-            addItemDecoration(topSpacingDecorator)
-            betListAdapter = BetsListRecyclerAdapter()
-            adapter = betListAdapter
-        }
-    }
 }
