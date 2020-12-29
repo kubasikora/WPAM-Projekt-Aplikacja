@@ -30,7 +30,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <Button
-        android:id="@+id/registerButtor"
+        android:id="@+id/registerButton"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:text="New user? Register now!"
         android:textColor="@color/colorPrimaryLight"
-        app:layout_constraintBottom_toTopOf="@+id/registerButtor"
+        app:layout_constraintBottom_toTopOf="@+id/registerButton"
         app:layout_constraintEnd_toEndOf="@+id/logInButton"
         app:layout_constraintStart_toStartOf="@+id/logInButton"
         app:layout_constraintTop_toBottomOf="@+id/logInButton" />

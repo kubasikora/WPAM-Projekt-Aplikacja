@@ -24,9 +24,6 @@ object ContestantService {
 
         val sharedPref = context?.getSharedPreferences("auth", Context.MODE_PRIVATE)
         val token = sharedPref.getString("jwt", "None")
-        if (token != null) {
-            Log.d("AUTH", token)
-        }
 
         val contestantRequest = object : JsonArrayRequest(Request.Method.GET, url, null,
             Response.Listener { response ->

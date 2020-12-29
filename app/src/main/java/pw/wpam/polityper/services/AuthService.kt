@@ -16,7 +16,7 @@ import pw.wpam.polityper.models.LoginResponse
 object AuthService {
     val gson = Gson()
 
-    fun loginUser(context: Context, username: String, password: String) {
+    fun loginUser(context: Context, username: String, password: String, complete: (Boolean) -> Unit) {
         val queue = Volley.newRequestQueue(context)
         val urlBase = context.getString(R.string.be_url)
         val url = "${urlBase}/auth/login/"
@@ -35,8 +35,10 @@ object AuthService {
                     putString("jwt", login.token)
                     apply()
                 }
+                complete(true)
             },
             Response.ErrorListener { error ->
+                complete(false)
                 Log.d("ERROR", error.toString())
             }
         ) {
@@ -52,5 +54,38 @@ object AuthService {
         );
 
        queue.add(loginRequest)
+    }
+
+    fun verifyToken(context: Context, complete: (Boolean) -> Unit) {
+        val queue = Volley.newRequestQueue(context)
+        val urlBase = context.getString(R.string.be_url)
+        val url = "${urlBase}/auth/verify"
+
+        val sharedPref = context?.getSharedPreferences("auth", Context.MODE_PRIVATE)
+        val token = sharedPref.getString("jwt", "None")
+
+        val jsonBody = JSONObject()
+        jsonBody.put("token", token)
+
+        val loginRequest = object : JsonObjectRequest(Request.Method.POST, url, jsonBody,
+            Response.Listener { _ ->
+                complete(true)
+            },
+            Response.ErrorListener {  _->
+                complete(false)
+            }
+        ) {
+            override fun getBodyContentType(): String {
+                return "application/json; charset=utf-8"
+            }
+        }
+
+        loginRequest.retryPolicy = DefaultRetryPolicy(
+            60000,
+            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        );
+
+        queue.add(loginRequest)
     }
 }
