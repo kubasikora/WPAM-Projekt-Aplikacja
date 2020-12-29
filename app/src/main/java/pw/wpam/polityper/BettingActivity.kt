@@ -6,6 +6,7 @@ import kotlinx.android.synthetic.main.activity_betting.*
 import pw.wpam.polityper.adapters.BetsListRecyclerAdapter
 import pw.wpam.polityper.adapters.ViewPageAdapter
 import pw.wpam.polityper.fragments.BetsFragment
+import pw.wpam.polityper.fragments.LeadersFragment
 
 class BettingActivity : AppCompatActivity() {
 
@@ -21,7 +22,7 @@ class BettingActivity : AppCompatActivity() {
     private fun setUpTabs(){
         val adapter = ViewPageAdapter(supportFragmentManager)
         adapter.addFragment(BetsFragment(),"Betting")
-        adapter.addFragment(BetsFragment(), "Leaderboard")
+        adapter.addFragment(LeadersFragment(), "Leaderboard")
         viewPager.adapter = adapter
         tabs.setupWithViewPager(viewPager)
 
