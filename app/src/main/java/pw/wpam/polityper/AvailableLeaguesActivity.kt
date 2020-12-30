@@ -2,36 +2,29 @@ package pw.wpam.polityper
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_available_leagues.*
-import pw.wpam.polityper.adapters.LeagueListRecyclerAdapter
-import pw.wpam.polityper.adapters.TopSpacingItemDecoration
+import pw.wpam.polityper.adapters.ViewPageAdapter
+import pw.wpam.polityper.fragments.LeaguesFragment
+import pw.wpam.polityper.fragments.SettingsFragment
 
 class AvailableLeaguesActivity : AppCompatActivity() {
 
-    private lateinit var leagueListAdapter: LeagueListRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_available_leagues)
 
-        initRecyclerView()
-        addDataSet()
+        setUpTabs()
     }
 
-    private fun addDataSet(){
-        val data = DataSource.createDataSet()
-        leagueListAdapter.submitList(data)
-    }
-
-    private fun initRecyclerView(){
-        recycler_view.apply {
-            layoutManager = LinearLayoutManager(this@AvailableLeaguesActivity)
-            val topSpacingDecorator = TopSpacingItemDecoration(30)
-            addItemDecoration(topSpacingDecorator)
-            leagueListAdapter = LeagueListRecyclerAdapter(this@AvailableLeaguesActivity)
-            adapter = leagueListAdapter
-        }
+    private fun setUpTabs(){
+        val adapter = ViewPageAdapter(supportFragmentManager)
+        adapter.addFragment(LeaguesFragment(),"Leagues")
+        adapter.addFragment(SettingsFragment(), "settings")
+        viewPagerLeagues.adapter = adapter
+        tabsLeagues.setupWithViewPager(viewPagerLeagues)
+        tabsLeagues.getTabAt(0)!!.setIcon(R.drawable.ic_baseline_sports_24)
+        tabsLeagues.getTabAt(1)!!.setIcon(R.drawable.ic_baseline_settings_24)
     }
 
 }

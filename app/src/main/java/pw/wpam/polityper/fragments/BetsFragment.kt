@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_available_leagues.*
+import kotlinx.android.synthetic.main.bets_fragment.*
 import pw.wpam.polityper.DataSourceBetting
 import pw.wpam.polityper.R
 import pw.wpam.polityper.adapters.BetsListRecyclerAdapter

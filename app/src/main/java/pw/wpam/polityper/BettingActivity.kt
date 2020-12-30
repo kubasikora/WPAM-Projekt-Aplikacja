@@ -10,7 +10,6 @@ import pw.wpam.polityper.fragments.LeadersFragment
 
 class BettingActivity : AppCompatActivity() {
 
-    private lateinit var betListAdapter: BetsListRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,8 +22,8 @@ class BettingActivity : AppCompatActivity() {
         val adapter = ViewPageAdapter(supportFragmentManager)
         adapter.addFragment(BetsFragment(),"Betting")
         adapter.addFragment(LeadersFragment(), "Leaderboard")
-        viewPager.adapter = adapter
-        tabs.setupWithViewPager(viewPager)
+        this.viewPager.adapter = adapter
+        tabs.setupWithViewPager(this.viewPager)
 
         tabs.getTabAt(0)!!.setIcon(R.drawable.ic_baseline_sports_24)
         tabs.getTabAt(1)!!.setIcon(R.drawable.ic_baseline_group_24)
