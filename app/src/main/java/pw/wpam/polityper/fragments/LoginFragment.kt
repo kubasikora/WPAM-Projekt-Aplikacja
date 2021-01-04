@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -58,10 +59,10 @@ class LoginFragment : Fragment() {
         return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val navController: NavController = this.findNavController()
-
-
+    override fun onResume() {
+        super.onResume()
+        this.view?.findViewById<TextView>(R.id.usernameLoginField)?.text = ""
+        this.view?.findViewById<TextView>(R.id.passwordLoginField)?.text = ""
+        this.userViewModel.loginFailedMessage.value = ""
     }
 }

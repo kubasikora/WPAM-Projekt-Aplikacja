@@ -13,22 +13,6 @@
     tools:context=".MainActivity">
 
     <EditText
-        android:id="@+id/usernameRegistrationField"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:hint="@string/prompt_username"
-        android:inputType="textPersonName"
-        android:selectAllOnFocus="true"
-        android:textColor="@color/textColor"
-        android:textColorHint="@color/hintColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.562"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailRegistrationField" />
-
-    <EditText
         android:id="@+id/emailRegistrationField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -45,6 +29,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
         app:layout_constraintVertical_bias="0.294" />
+
+    <EditText
+        android:id="@+id/usernameRegistrationField"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:hint="@string/prompt_username"
+        android:inputType="textPersonName"
+        android:selectAllOnFocus="true"
+        android:textColor="@color/textColor"
+        android:textColorHint="@color/hintColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.562"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailRegistrationField" />
 
     <EditText
         android:id="@+id/passwordRegistrationField"
