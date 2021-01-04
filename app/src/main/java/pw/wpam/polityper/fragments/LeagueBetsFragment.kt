@@ -1,27 +1,22 @@
 package pw.wpam.polityper.fragments
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_available_leagues.*
-import kotlinx.android.synthetic.main.bets_fragment.*
+import kotlinx.android.synthetic.main.fragment_league_bets.*
 import pw.wpam.polityper.DataSourceBetting
 import pw.wpam.polityper.R
 import pw.wpam.polityper.adapters.BetsListRecyclerAdapter
 import pw.wpam.polityper.adapters.TopSpacingItemDecoration
 
-class BetsFragment : Fragment() {
-
+class LeagueBetsFragment : Fragment() {
     private lateinit var betListAdapter: BetsListRecyclerAdapter
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.bets_fragment, container, false)
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_league_bets, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -29,6 +24,7 @@ class BetsFragment : Fragment() {
         initRecyclerView()
         addDataSet()
     }
+
     private fun addDataSet(){
         val data = DataSourceBetting.createDataSet()
         betListAdapter.submitList(data)
@@ -41,5 +37,4 @@ class BetsFragment : Fragment() {
         betListAdapter = BetsListRecyclerAdapter()
         recycler_view.adapter = betListAdapter
     }
-
 }

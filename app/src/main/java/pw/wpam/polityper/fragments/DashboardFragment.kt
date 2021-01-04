@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.activity_available_leagues.*
+import kotlinx.android.synthetic.main.fragment_dashboard.*
 import pw.wpam.polityper.R
 import pw.wpam.polityper.adapters.ViewPageAdapter
 
@@ -34,7 +34,6 @@ class DashboardFragment : Fragment() {
         return view
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpTabs()
@@ -48,8 +47,6 @@ class DashboardFragment : Fragment() {
         val tabTitles: Array<String> = arrayOf("Leagues", "Settings")
         val tabIcons: Array<Int> = arrayOf(R.drawable.ic_baseline_sports_24, R.drawable.ic_baseline_settings_24)
 
-//        this.tabsLeagues.getTabAt(0)?.setIcon(R.drawable.ic_baseline_sports_24)
-//        this.tabsLeagues.getTabAt(1)?.setIcon(R.drawable.ic_baseline_settings_24)
         TabLayoutMediator(this.tabsLeagues, this.viewPagerLeagues) { tab, position ->
             tab.text = tabTitles[position]
             tab.setIcon(tabIcons[position])
