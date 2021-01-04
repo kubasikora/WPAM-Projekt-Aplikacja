@@ -7,5 +7,7 @@
     <color name="colorWarning">#C83E4D</color>
     <color name="colorSecondary">#71B48D</color>
     <color name="colorTertiary">#FBBFCA</color>
+
     <color name="textColor">#FFFFFF</color>
+    <color name="hintColor">#80FFFFFF</color>
 </resources>

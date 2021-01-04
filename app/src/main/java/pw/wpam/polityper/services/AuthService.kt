@@ -14,6 +14,7 @@ import com.google.gson.Gson
 import org.json.JSONObject
 import pw.wpam.polityper.R
 import pw.wpam.polityper.models.LoginResponse
+import pw.wpam.polityper.models.RegistrationResponse
 import pw.wpam.polityper.models.User
 
 
@@ -33,7 +34,7 @@ object AuthService {
     }
 
     fun loginUser(username: String, password: String, complete: (Boolean, User?) -> Unit) {
-        val urlBase = this.context!!.getString(R.string.be_url)
+        val urlBase: String? = this.context?.getString(R.string.be_url)
         val url = "${urlBase}/auth/login/"
 
         val jsonBody = JSONObject()
@@ -64,8 +65,37 @@ object AuthService {
         this.queue?.add(loginRequest)
     }
 
+    fun registerUser(email: String, username: String, password: String, password2: String, complete: (Boolean, String) -> Unit) {
+        val urlBase: String? = this.context?.getString(R.string.be_url)
+        val url = "${urlBase}/auth/registration/"
+
+        val jsonBody = JSONObject()
+        jsonBody.put("email", email)
+        jsonBody.put("username", username)
+        jsonBody.put("password1", password)
+        jsonBody.put("password2", password2)
+
+        val registrationRequest = object : JsonObjectRequest(Request.Method.POST, url, jsonBody,
+            Response.Listener { response ->
+                val registrationInfo = gson.fromJson(response.toString(), RegistrationResponse::class.java)
+                complete(true, registrationInfo.username)
+            },
+            Response.ErrorListener { error ->
+                Log.d("AUTH", error.toString())
+                complete(false, error.toString())
+            }
+        ) {
+            override fun getBodyContentType(): String {
+                return "application/json; charset=utf-8"
+            }
+        }
+
+        registrationRequest.retryPolicy = retryPolicy
+        this.queue?.add(registrationRequest)
+    }
+
     fun verifyToken(complete: (Boolean) -> Unit) {
-        val urlBase = this.context!!.getString(R.string.be_url)
+        val urlBase: String? = this.context?.getString(R.string.be_url)
         val url = "${urlBase}/auth/verify"
 
         val sharedPref = this.context?.getSharedPreferences("auth", Context.MODE_PRIVATE)!!
@@ -88,7 +118,7 @@ object AuthService {
     }
 
     fun logout(complete: (Boolean) -> Unit) {
-        val urlBase = this.context!!.getString(R.string.be_url)
+        val urlBase: String? = this.context?.getString(R.string.be_url)
         val url = "${urlBase}/auth/logout/"
 
         val sharedPref = this.context?.getSharedPreferences("auth", Context.MODE_PRIVATE)!!
@@ -117,7 +147,7 @@ object AuthService {
     }
 
     fun getCurrentUser(complete: (Boolean, User?) -> Unit) {
-        val urlBase = this.context!!.getString(R.string.be_url)
+        val urlBase: String? = this.context?.getString(R.string.be_url)
         val url = "${urlBase}/auth/user/"
 
         val sharedPref = context?.getSharedPreferences("auth", Context.MODE_PRIVATE)!!

@@ -12,6 +12,7 @@ class UserViewModel : ViewModel() {
             loadCurrentUser()
         }
     }
+
     val loginSuccess: MutableLiveData<Boolean> = MutableLiveData<Boolean>(false)
     val loginFailedMessage: MutableLiveData<String> = MutableLiveData<String>("")
     val loading: MutableLiveData<Boolean> = MutableLiveData<Boolean>(false)
