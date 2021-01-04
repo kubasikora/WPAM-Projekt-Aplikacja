@@ -45,10 +45,16 @@ class DashboardFragment : Fragment() {
         pagerAdapter.addFragment(LeaguesFragment(), "Leagues")
         pagerAdapter.addFragment(SettingsFragment(), "Settings")
         this.viewPagerLeagues.adapter = pagerAdapter
+        val tabTitles: Array<String> = arrayOf("Leagues", "Settings")
+        val tabIcons: Array<Int> = arrayOf(R.drawable.ic_baseline_sports_24, R.drawable.ic_baseline_settings_24)
 
-        this.tabsLeagues.getTabAt(0)?.setIcon(R.drawable.ic_baseline_sports_24)
-        this.tabsLeagues.getTabAt(1)?.setIcon(R.drawable.ic_baseline_settings_24)
-        TabLayoutMediator(this.tabsLeagues, this.viewPagerLeagues) { _, _ -> }.attach()
+//        this.tabsLeagues.getTabAt(0)?.setIcon(R.drawable.ic_baseline_sports_24)
+//        this.tabsLeagues.getTabAt(1)?.setIcon(R.drawable.ic_baseline_settings_24)
+        TabLayoutMediator(this.tabsLeagues, this.viewPagerLeagues) { tab, position ->
+            tab.text = tabTitles[position]
+            tab.setIcon(tabIcons[position])
+            this.viewPagerLeagues.setCurrentItem(tab.position, true)
+        }.attach()
     }
 
 }
