@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".AvailableLeaguesActivity">
+    tools:context=".MainActivity">
 
     <EditText
         android:id="@+id/username"
@@ -21,6 +21,8 @@
         android:hint="@string/prompt_username"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
+        android:textColor="@color/textColor"
+        android:textColorHint="#80FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +39,10 @@
         android:imeOptions="actionDone"
         android:inputType="textPassword"
         android:selectAllOnFocus="true"
+        android:textColor="@color/textColor"
+        android:textColorHint="#80FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.468"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username" />
 
@@ -55,9 +60,10 @@
         android:text="Log In"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <ProgressBar
         android:id="@+id/loading"
@@ -81,4 +87,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/logo" />
+
+    <TextView
+        android:id="@+id/loginErrorMessage"
+        android:layout_width="327dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="18dp"
+        android:textColor="@color/colorWarning"
+        app:layout_constraintBottom_toTopOf="@+id/loginButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
+
+    <Button
+        android:id="@+id/registerButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="308dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="90dp"
+        android:text="Don't have an account? Register here"
+        android:textAllCaps="false"
+        android:textColor="@color/textColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

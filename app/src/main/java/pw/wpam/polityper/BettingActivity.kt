@@ -15,18 +15,18 @@ class BettingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_betting)
 
-        setUpTabs()
+//        setUpTabs()
     }
 
-    private fun setUpTabs(){
-        val adapter = ViewPageAdapter(supportFragmentManager)
-        adapter.addFragment(BetsFragment(),"Betting")
-        adapter.addFragment(LeadersFragment(), "Leaderboard")
-        this.viewPager.adapter = adapter
-        tabs.setupWithViewPager(this.viewPager)
-
-        tabs.getTabAt(0)!!.setIcon(R.drawable.ic_baseline_sports_24)
-        tabs.getTabAt(1)!!.setIcon(R.drawable.ic_baseline_group_24)
-    }
+//    private fun setUpTabs(){
+//        val adapter = ViewPageAdapter(supportFragmentManager)
+//        adapter.addFragment(BetsFragment(),"Betting")
+//        adapter.addFragment(LeadersFragment(), "Leaderboard")
+//        this.viewPager.adapter = adapter
+//        tabs.setupWithViewPager(this.viewPager)
+//
+//        tabs.getTabAt(0)!!.setIcon(R.drawable.ic_baseline_sports_24)
+//        tabs.getTabAt(1)!!.setIcon(R.drawable.ic_baseline_group_24)
+//    }
 
 }

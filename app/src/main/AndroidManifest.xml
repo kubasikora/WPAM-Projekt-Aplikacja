@@ -12,17 +12,10 @@
         android:roundIcon="@mipmap/ic_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BettingActivity"></activity>
-        <activity android:name=".AvailableLeaguesActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login" />
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
     </application>

@@ -1,6 +1,5 @@
 package pw.wpam.polityper.adapters
 
-
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -16,10 +15,7 @@ import pw.wpam.polityper.BettingActivity
 import pw.wpam.polityper.R
 import kotlin.collections.ArrayList
 
-
-class LeagueListRecyclerAdapter(var mContext:Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>()
-{
-
+class LeagueListRecyclerAdapter(var mContext:Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var items: List<LeagueHeader> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -30,11 +26,9 @@ class LeagueListRecyclerAdapter(var mContext:Context) : RecyclerView.Adapter<Rec
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder) {
-
             is LeagueViewHolder -> {
                 holder.bind(items.get(position))
             }
-
         }
     }
 
@@ -47,10 +41,7 @@ class LeagueListRecyclerAdapter(var mContext:Context) : RecyclerView.Adapter<Rec
     }
 
     inner class LeagueViewHolder
-    constructor(
-            itemView: View
-    ): RecyclerView.ViewHolder(itemView){
-
+    constructor(itemView: View): RecyclerView.ViewHolder(itemView){
         val leagueIcon = itemView.icon
         val leagueName = itemView.leagueName
         val tournamentName = itemView.tournamentName
@@ -62,7 +53,6 @@ class LeagueListRecyclerAdapter(var mContext:Context) : RecyclerView.Adapter<Rec
         }
 
         fun bind(leagueHeader: LeagueHeader){
-
             val requestOptions = RequestOptions()
                     .placeholder(R.drawable.ic_launcher_background)
                     .error(R.drawable.ic_launcher_background)
@@ -73,9 +63,6 @@ class LeagueListRecyclerAdapter(var mContext:Context) : RecyclerView.Adapter<Rec
                     .into(leagueIcon)
             leagueName.setText(leagueHeader.leagueName)
             tournamentName.setText(leagueHeader.tournamentName)
-
         }
-
     }
-
 }

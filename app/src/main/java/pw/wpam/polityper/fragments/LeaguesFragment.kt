@@ -7,17 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_available_leagues.*
 import kotlinx.android.synthetic.main.fragment_leagues.*
-import pw.wpam.polityper.AvailableLeaguesActivity
 import pw.wpam.polityper.DataSource
 import pw.wpam.polityper.R
 import pw.wpam.polityper.adapters.LeagueListRecyclerAdapter
 import pw.wpam.polityper.adapters.TopSpacingItemDecoration
 
 class LeaguesFragment : Fragment() {
-
     private lateinit var leagueListAdapter: LeagueListRecyclerAdapter
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -30,6 +28,7 @@ class LeaguesFragment : Fragment() {
         initRecyclerView()
         addDataSet()
     }
+
     private fun addDataSet(){
         val data = DataSource.createDataSet()
         leagueListAdapter.submitList(data)
