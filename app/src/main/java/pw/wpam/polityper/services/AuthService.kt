@@ -14,8 +14,9 @@ import com.google.gson.Gson
 import org.json.JSONObject
 import pw.wpam.polityper.R
 import pw.wpam.polityper.models.LoginResponse
-import pw.wpam.polityper.models.RegistrationResponse
+import pw.wpam.polityper.models.RegistrationError
 import pw.wpam.polityper.models.User
+import java.nio.charset.StandardCharsets.UTF_8
 
 
 object AuthService {
@@ -77,12 +78,27 @@ object AuthService {
 
         val registrationRequest = object : JsonObjectRequest(Request.Method.POST, url, jsonBody,
             Response.Listener { response ->
-                val registrationInfo = gson.fromJson(response.toString(), RegistrationResponse::class.java)
-                complete(true, registrationInfo.username)
+                val registrationInfo = gson.fromJson(response.toString(), LoginResponse::class.java)
+                Log.d("AUTH", registrationInfo.toString())
+                complete(true, registrationInfo.user.username)
             },
             Response.ErrorListener { error ->
-                Log.d("AUTH", error.toString())
-                complete(false, error.toString())
+                Log.d("AUTH", error.networkResponse.data.toString(UTF_8))
+                val errorResponse = gson.fromJson(error.networkResponse.data.toString(UTF_8), RegistrationError::class.java)
+                var errorMessage: String = "There was a problem with your registration. Please try again later."
+                if(errorResponse.otherErrors != null){
+                    errorMessage = errorResponse.otherErrors[0]
+                }
+                if(errorResponse.passwordErrors != null){
+                    errorMessage = errorResponse.passwordErrors[0]
+                }
+                if(errorResponse.usernameErrors != null){
+                    errorMessage = errorResponse.usernameErrors[0]
+                }
+                if(errorResponse.emailErrors != null){
+                    errorMessage = errorResponse.emailErrors[0]
+                }
+                complete(false, errorMessage)
             }
         ) {
             override fun getBodyContentType(): String {

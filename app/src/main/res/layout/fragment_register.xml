@@ -13,23 +13,23 @@
     tools:context=".MainActivity">
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/usernameRegistrationField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:hint="@string/prompt_username"
-        android:inputType="textEmailAddress"
+        android:inputType="textPersonName"
         android:selectAllOnFocus="true"
         android:textColor="@color/textColor"
         android:textColorHint="@color/hintColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.562"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/emailRegistrationField" />
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/emailRegistrationField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -47,7 +47,7 @@
         app:layout_constraintVertical_bias="0.294" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/passwordRegistrationField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -60,10 +60,10 @@
         android:textColorHint="@color/hintColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        app:layout_constraintTop_toBottomOf="@+id/usernameRegistrationField" />
 
     <EditText
-        android:id="@+id/password2"
+        android:id="@+id/password2RegistrationField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -78,7 +78,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.562"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordRegistrationField" />
 
 
     <Button
@@ -95,19 +95,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password2"
+        app:layout_constraintTop_toBottomOf="@+id/password2RegistrationField"
         app:layout_constraintVertical_bias="0.409" />
 
     <TextView
-        android:id="@+id/loginErrorMessage"
-        android:layout_width="327dp"
-        android:layout_height="31dp"
+        android:id="@+id/registerErrorMessage"
+        android:layout_width="332dp"
+        android:layout_height="32dp"
         android:layout_marginBottom="18dp"
         android:textColor="@color/colorWarning"
-        app:layout_constraintBottom_toTopOf="@+id/registerButton"
+        app:layout_constraintBottom_toTopOf="@+id/createAccountButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password2"
+        app:layout_constraintTop_toBottomOf="@+id/password2RegistrationField"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView

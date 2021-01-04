@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_login.view.*
 import pw.wpam.polityper.R
 import pw.wpam.polityper.viewmodels.UserViewModel
@@ -22,8 +23,8 @@ class LoginFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_login, container, false)
         view.loginButton.setOnClickListener {
-            val username = view.findViewById<TextView>(R.id.username).text.toString()
-            val password = view.findViewById<TextView>(R.id.password).text.toString()
+            val username = usernameLoginField.text.toString()
+            val password = passwordLoginField.text.toString()
             userViewModel.login(username, password)
         }
         view.registerButton.setOnClickListener {
@@ -47,7 +48,7 @@ class LoginFragment : Fragment() {
                     navController.navigate(R.id.action_loginFragment_to_dashboardFragment)
                 }
             } else {
-                view.findViewById<TextView>(R.id.password).text = ""
+                view.findViewById<TextView>(R.id.passwordLoginField).text = ""
             }
         })
 

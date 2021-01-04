@@ -29,7 +29,13 @@
         android:id="@+id/registerFragment"
         android:name="pw.wpam.polityper.fragments.RegisterFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" />
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_registrationConfirmFragment"
+            app:destination="@id/registrationConfirmFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
 
     <fragment
         android:id="@+id/dashboardFragment"
@@ -70,10 +76,23 @@
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
     </fragment>
+
     <fragment
         android:id="@+id/leagueDetailFragment"
         android:name="pw.wpam.polityper.fragments.LeagueDetailFragment"
         android:label="fragment_league_detail"
         tools:layout="@layout/fragment_league_detail" />
+
+    <fragment
+        android:id="@+id/registrationConfirmFragment"
+        android:name="pw.wpam.polityper.fragments.RegistrationConfirmFragment"
+        android:label="fragment_registration_confirm"
+        tools:layout="@layout/fragment_registration_confirm">
+        <action
+            android:id="@+id/action_registrationConfirmFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true"/>
+    </fragment>
 
 </navigation>

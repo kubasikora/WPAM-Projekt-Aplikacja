@@ -10,6 +10,11 @@ class RegisterViewModel : ViewModel() {
     val registerMessage: MutableLiveData<String> = MutableLiveData<String>("")
     val loading: MutableLiveData<Boolean> = MutableLiveData<Boolean>(false)
 
+    fun reset(){
+        registerSuccess.postValue(false)
+        registerMessage.postValue("")
+        loading.postValue(false)
+    }
 
     fun register(email: String, username: String, password: String, password2: String) {
         Log.d("USER VM", "Registering new user")
