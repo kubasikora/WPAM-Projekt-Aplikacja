@@ -6,5 +6,6 @@ data class Bet (
         val date: String,
         val playerOnePrediction: Int,
         val playerTwoPrediction: Int,
+        val valid: Boolean,
         val participant: Int
 )

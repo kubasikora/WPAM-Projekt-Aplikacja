@@ -13,6 +13,7 @@ import pw.wpam.polityper.models.Bet
 import pw.wpam.polityper.models.League
 import pw.wpam.polityper.models.Participant
 import pw.wpam.polityper.models.Tournament
+import pw.wpam.polityper.services.BetService
 import kotlin.collections.ArrayList
 
 
@@ -53,26 +54,41 @@ class BetsListRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
         items = betsList
     }
 
-    class BetViewHolder
+    inner class BetViewHolder
     constructor(
             itemView: View
     ): RecyclerView.ViewHolder(itemView){
 
         val firstTeam = itemView.firstTeamName
         val secondTeam = itemView.secondTeamName
+        val firstTeamscore = itemView.firstTeamPrediction
+        val secondTeamScore = itemView.secondTeamPrediction
 
         init {
             itemView.betPlacer.setOnClickListener {
-                val position:Int = adapterPosition
-                Toast.makeText(itemView.context,"Bet Placed", Toast.LENGTH_SHORT).show()
+                val position = adapterPosition
+                val betId = items[position].id
+                BetService.placeBet(betId, firstTeamscore.text.toString(), secondTeamScore.text.toString()){success, newBet->
+                    Toast.makeText(itemView.context,"Bet Placed", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
         fun bind(bet: Bet){
             firstTeam.setText(bet.match.playerOne.name)
             secondTeam.setText(bet.match.playerTwo.name)
-
-
+            if (bet.valid){
+                if(bet.match.finished) {
+                    firstTeamscore.setText(bet.match.playerOneResult.toString())
+                    firstTeamscore.isFocusable = false
+                    secondTeamScore.setText(bet.match.playerTwoResult.toString())
+                    secondTeamScore.isFocusable = false
+                }
+                else{
+                    firstTeamscore.setText(bet.playerOnePrediction.toString())
+                    secondTeamScore.setText(bet.playerTwoPrediction.toString())
+                }
+            }
         }
 
     }

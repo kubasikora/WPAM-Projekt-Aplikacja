@@ -1,16 +1,21 @@
 package pw.wpam.polityper.services
 
 import android.content.Context
+import android.content.LocusId
+import android.gesture.Prediction
 import android.util.Log
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
+import org.json.JSONObject
 import pw.wpam.polityper.R
-import pw.wpam.polityper.models.Bet
+import pw.wpam.polityper.models.*
+import java.nio.charset.StandardCharsets
 
 object BetService {
     val gson = Gson()
@@ -58,5 +63,39 @@ object BetService {
         betRequest.retryPolicy = this.retryPolicy
 
         this.queue?.add(betRequest)
+    }
+
+    fun placeBet(betId: Int?, playerOnePrediction: String, playerTwoPrediction: String,
+                complete: (Boolean, Bet?) -> Unit){
+        val urlBase: String? = this.context?.getString(R.string.be_url)
+        val url = "${urlBase}/api/betting/bets/${betId}/place"
+
+        val jsonBody = JSONObject()
+        jsonBody.put("valid", true)
+        jsonBody.put("playerOnePrediction", playerOnePrediction.toInt())
+        jsonBody.put("playerTwoPrediction", playerTwoPrediction.toInt())
+        val sharedPref = BetService.context?.getSharedPreferences("auth", Context.MODE_PRIVATE)
+        val token = sharedPref?.getString("jwt", "None")
+
+        val placeBetRequest = object: JsonObjectRequest(Request.Method.PATCH, url, jsonBody,
+                                                       Response.Listener { response ->
+            complete(true, null)
+        },
+        Response.ErrorListener { error ->
+            complete(false, null)
+        }
+        ) {
+            override fun getBodyContentType(): String {
+                return "application/json; charset=utf-8"
+            }
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Bearer $token"
+                return headers
+            }
+        }
+
+        placeBetRequest.retryPolicy = BetService.retryPolicy
+        this.queue?.add(placeBetRequest)
     }
 }
