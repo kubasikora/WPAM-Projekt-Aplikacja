@@ -26,7 +26,7 @@ object UserLeaguesService {
         this.context = context
         this.queue = Volley.newRequestQueue(this.context)
     }
-    fun getUserLeagues(complete: (Boolean, ArrayList<Participant>) -> Unit) {
+    fun getUserParticipants(complete: (Boolean, ArrayList<Participant>) -> Unit) {
         val urlBase = context?.getString(R.string.be_url)
         val url = "${urlBase}/api/betting/participants/mine"
 

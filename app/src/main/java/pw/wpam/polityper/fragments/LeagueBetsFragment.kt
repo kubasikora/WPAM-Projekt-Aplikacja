@@ -10,12 +10,18 @@ import kotlinx.android.synthetic.main.fragment_league_bets.*
 import pw.wpam.polityper.R
 import pw.wpam.polityper.adapters.BetsListRecyclerAdapter
 import pw.wpam.polityper.adapters.TopSpacingItemDecoration
-import pw.wpam.polityper.models.GameBetHeader
+import pw.wpam.polityper.models.Bet
+import pw.wpam.polityper.services.BetService
 
-class LeagueBetsFragment : Fragment() {
+
+class LeagueBetsFragment(leagueId: Int?) : Fragment(){
     private lateinit var betListAdapter: BetsListRecyclerAdapter
+    private var leagueId = leagueId
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        BetService.getBetsInLeague(leagueId) { success, participants ->
+            betListAdapter.update(participants)
+        }
         return inflater.inflate(R.layout.fragment_league_bets, container, false)
     }
 
@@ -26,7 +32,7 @@ class LeagueBetsFragment : Fragment() {
     }
 
     private fun addDataSet(){
-        val data = ArrayList<GameBetHeader>()
+        val data = ArrayList<Bet>()
         betListAdapter.submitList(data)
     }
 
