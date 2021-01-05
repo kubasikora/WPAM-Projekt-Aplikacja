@@ -30,6 +30,12 @@ class SettingsFragment : Fragment() {
         view.saveNewPassword.setOnClickListener {
             val password1 = view.findViewById<TextView>(R.id.newPassword).text.toString()
             val password2 = view.findViewById<TextView>(R.id.newPasswordConfirm).text.toString()
+            if(password1 != password2){
+                view.findViewById<TextView>(R.id.newPassword).text = ""
+                view.findViewById<TextView>(R.id.newPasswordConfirm).text = ""
+                Toast.makeText(activity, "Passwords do not match", Toast.LENGTH_LONG)
+                    .show()
+            }
             AuthService.changePassword(password1, password2) { success ->
                 if(success){
                     Toast.makeText(activity, "Password updated successfully", Toast.LENGTH_LONG)
