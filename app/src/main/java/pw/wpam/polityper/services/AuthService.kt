@@ -66,6 +66,78 @@ object AuthService {
         this.queue?.add(loginRequest)
     }
 
+    fun updateProfile(firstName: String, lastName: String, complete: (Boolean, User?) -> Unit) {
+        val urlBase: String? = this.context?.getString(R.string.be_url)
+        val url = "${urlBase}/auth/user/"
+
+        val sharedPref = this.context?.getSharedPreferences("auth", Context.MODE_PRIVATE)!!
+        val token = sharedPref.getString("jwt", "None")
+
+        val jsonBody = JSONObject()
+        jsonBody.put("first_name", firstName)
+        jsonBody.put("last_name", lastName)
+
+        val updateRequest = object : JsonObjectRequest(Request.Method.PATCH, url, jsonBody,
+            Response.Listener { response ->
+                val userInfo = gson.fromJson(response.toString(), User::class.java)
+                Log.d("AUTH", userInfo.toString())
+                complete(true, userInfo)
+            },
+            Response.ErrorListener { error ->
+                Log.d("AUTH", error.networkResponse.data.toString(UTF_8))
+                complete(false, null)
+            }
+        ) {
+            override fun getBodyContentType(): String {
+                return "application/json; charset=utf-8"
+            }
+
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Bearer $token"
+                return headers
+            }
+        }
+
+        updateRequest.retryPolicy = retryPolicy
+        this.queue?.add(updateRequest)
+    }
+
+    fun changePassword(password: String, password2: String, complete: (Boolean) -> Unit) {
+        val urlBase: String? = this.context?.getString(R.string.be_url)
+        val url = "${urlBase}/auth/password/change/"
+
+        val sharedPref = this.context?.getSharedPreferences("auth", Context.MODE_PRIVATE)!!
+        val token = sharedPref.getString("jwt", "None")
+
+        val jsonBody = JSONObject()
+        jsonBody.put("new_password1", password)
+        jsonBody.put("new_password2", password2)
+
+        val updateRequest = object : JsonObjectRequest(Request.Method.POST, url, jsonBody,
+            Response.Listener { response ->
+                complete(true)
+            },
+            Response.ErrorListener { error ->
+                Log.d("AUTH", error.networkResponse.data.toString(UTF_8))
+                complete(false)
+            }
+        ) {
+            override fun getBodyContentType(): String {
+                return "application/json; charset=utf-8"
+            }
+
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Bearer $token"
+                return headers
+            }
+        }
+
+        updateRequest.retryPolicy = retryPolicy
+        this.queue?.add(updateRequest)
+    }
+
     fun registerUser(email: String, username: String, password: String, password2: String, complete: (Boolean, String) -> Unit) {
         val urlBase: String? = this.context?.getString(R.string.be_url)
         val url = "${urlBase}/auth/registration/"

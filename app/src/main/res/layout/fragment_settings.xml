@@ -58,7 +58,7 @@
                 android:layout_marginEnd="8dp"
                 android:hint="@string/prompt_newPassword"
                 android:imeActionLabel="@string/action_sign_in_short"
-                android:imeOptions="actionDone"
+                android:imeOptions="actionNext"
                 android:inputType="textPassword"
                 android:selectAllOnFocus="true"
                 android:textColor="@color/textColor"
@@ -72,13 +72,13 @@
                 android:layout_width="169dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:background="@drawable/rounded_button"
                 android:enabled="true"
                 android:text=" Save New password "
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/changePasswordError" />
+                app:layout_constraintTop_toBottomOf="@+id/newPasswordConfirm" />
 
             <Button
                 android:id="@+id/saveNewProfile"
@@ -91,7 +91,7 @@
                 android:text=" Save "
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/newPassword3" />
+                app:layout_constraintTop_toBottomOf="@+id/lastNameInput" />
 
             <Button
                 android:id="@+id/logoutButton"
@@ -152,7 +152,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/progressBar2" />
 
             <EditText
-                android:id="@+id/newPassword3"
+                android:id="@+id/lastNameInput"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -178,7 +178,7 @@
                 android:layout_marginEnd="8dp"
                 android:hint="@string/prompt_firstName"
                 android:imeActionLabel="@string/action_sign_in_short"
-                android:imeOptions="actionDone"
+                android:imeOptions="actionNext"
                 android:inputType="text"
                 android:selectAllOnFocus="true"
                 android:textColor="@color/textColor"
@@ -238,16 +238,6 @@
                 app:layout_constraintHorizontal_bias="0.454"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/saveNewProfile" />
-
-            <TextView
-                android:id="@+id/changePasswordError"
-                android:layout_width="331dp"
-                android:layout_height="22dp"
-                android:textColor="@color/colorWarning"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.492"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/newPasswordConfirm" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

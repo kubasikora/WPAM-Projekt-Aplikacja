@@ -1,6 +1,7 @@
 package pw.wpam.polityper.viewmodels
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import pw.wpam.polityper.models.User
@@ -16,6 +17,11 @@ class UserViewModel : ViewModel() {
     val loginSuccess: MutableLiveData<Boolean> = MutableLiveData<Boolean>(false)
     val loginFailedMessage: MutableLiveData<String> = MutableLiveData<String>("")
     val loading: MutableLiveData<Boolean> = MutableLiveData<Boolean>(false)
+
+    // updating, success
+    val updatingProfile: MutableLiveData<Pair<Boolean, Boolean>> = MutableLiveData<Pair<Boolean, Boolean>>(Pair(false,
+        second = false
+    ))
 
     fun login(username: String, password: String) {
         loading.postValue(true)
@@ -40,6 +46,18 @@ class UserViewModel : ViewModel() {
             loginSuccess.postValue(false)
             currentUser.postValue(null)
             loading.postValue(false)
+        }
+    }
+
+    fun updateUserProfile(firstName: String, lastName: String) {
+        updatingProfile.postValue(Pair(true, second = false))
+        AuthService.updateProfile(firstName, lastName) { success, user ->
+            if(success) {
+                currentUser.postValue(user)
+                updatingProfile.postValue(Pair(false, second = true))
+            } else {
+                updatingProfile.postValue(Pair(false, second = false))
+            }
         }
     }
 
