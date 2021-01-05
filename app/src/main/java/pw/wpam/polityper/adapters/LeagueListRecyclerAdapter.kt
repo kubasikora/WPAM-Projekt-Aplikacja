@@ -1,21 +1,24 @@
 package pw.wpam.polityper.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import pw.wpam.polityper.models.LeagueHeader
+import pw.wpam.polityper.models.League
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.recycler_view_league.view.*
 import pw.wpam.polityper.R
+import pw.wpam.polityper.models.Participant
+import pw.wpam.polityper.models.Tournament
 import kotlin.collections.ArrayList
 
 class LeagueListRecyclerAdapter(var mContext: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var items: List<LeagueHeader> = ArrayList()
+    private var items: List<League> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return LeagueViewHolder(
@@ -35,7 +38,18 @@ class LeagueListRecyclerAdapter(var mContext: Context) : RecyclerView.Adapter<Re
         return items.size
     }
 
-    fun submitList(leagueList: List<LeagueHeader>){
+    fun update(participantList: List<Participant>){
+        val data = ArrayList<League>()
+        for (participant in participantList) {
+            data.add(participant.league)
+            Log.d("INFO", participant.league.name)
+        }
+        data.add(League(0, Tournament(0,"",""),"Add New League","",""))
+        items = data
+        this.notifyDataSetChanged()
+    }
+
+    fun submitList(leagueList: List<League>){
         items = leagueList
     }
 
@@ -52,7 +66,20 @@ class LeagueListRecyclerAdapter(var mContext: Context) : RecyclerView.Adapter<Re
             }
         }
 
-        fun bind(leagueHeader: LeagueHeader){
+        fun bind(league: League){
+            val leagueImage: Int
+            if(league.tournament.sport=="FOOTBALL") {
+                leagueImage = R.drawable.ic_baseline_sports_soccer_24
+            }
+            else if(league.tournament.sport=="TENNIS") {
+                leagueImage = R.drawable.ic_baseline_sports_tennis_24
+            }
+            else if(league.tournament.sport=="VOLLEYBALL") {
+                leagueImage = R.drawable.ic_baseline_sports_volleyball_24
+            }
+            else{
+                leagueImage = R.drawable.ic_baseline_add_circle_24
+            }
             val requestOptions = RequestOptions()
                     .placeholder(R.drawable.ic_launcher_background)
                     .error(R.drawable.ic_launcher_background)
@@ -60,12 +87,12 @@ class LeagueListRecyclerAdapter(var mContext: Context) : RecyclerView.Adapter<Re
             // set icon
             Glide.with(itemView.context)
                     .applyDefaultRequestOptions(requestOptions)
-                    .load(leagueHeader.tournamentIcon)
+                    .load(leagueImage)
                     .into(leagueIcon)
 
             // set text fields
-            leagueName.text = leagueHeader.leagueName
-            tournamentName.text = leagueHeader.tournamentName
+            leagueName.text = league.name
+            tournamentName.text = league.tournament.name
         }
     }
 }

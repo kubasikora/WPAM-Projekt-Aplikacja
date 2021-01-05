@@ -1,6 +1,6 @@
 package pw.wpam.polityper.models
 
-data class TeamSnippetDataClass(
+data class TeamSnippet(
         val id: Int,
         val name: String
 )

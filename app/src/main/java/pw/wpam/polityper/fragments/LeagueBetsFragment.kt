@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_league_bets.*
-import pw.wpam.polityper.DataSourceBetting
 import pw.wpam.polityper.R
 import pw.wpam.polityper.adapters.BetsListRecyclerAdapter
 import pw.wpam.polityper.adapters.TopSpacingItemDecoration
+import pw.wpam.polityper.models.GameBetHeader
 
 class LeagueBetsFragment : Fragment() {
     private lateinit var betListAdapter: BetsListRecyclerAdapter
@@ -26,7 +26,7 @@ class LeagueBetsFragment : Fragment() {
     }
 
     private fun addDataSet(){
-        val data = DataSourceBetting.createDataSet()
+        val data = ArrayList<GameBetHeader>()
         betListAdapter.submitList(data)
     }
 

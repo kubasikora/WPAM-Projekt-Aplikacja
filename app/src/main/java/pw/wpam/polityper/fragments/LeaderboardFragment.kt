@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_leaderboard.*
-import pw.wpam.polityper.DataSourceLeaderboard
 import pw.wpam.polityper.R
 import pw.wpam.polityper.adapters.LeaderboardRecyclerAdapter
 import pw.wpam.polityper.adapters.TopSpacingItemDecoration
+import pw.wpam.polityper.models.LeaderHeader
 
 class LeaderboardFragment: Fragment() {
 
@@ -28,7 +28,7 @@ class LeaderboardFragment: Fragment() {
         addDataSet()
     }
     private fun addDataSet(){
-        val data = DataSourceLeaderboard.createDataSet()
+        val data = ArrayList<LeaderHeader>()
         leaderboardRecyclerAdapter.submitList(data)
     }
 
