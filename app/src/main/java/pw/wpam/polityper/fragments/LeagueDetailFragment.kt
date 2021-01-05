@@ -26,7 +26,7 @@ class LeagueDetailFragment : Fragment() {
     private fun setUpTabs(){
         val pagerAdapter = ViewPageAdapter(this.requireActivity())
         pagerAdapter.addFragment(LeagueBetsFragment(this.arguments?.getInt("leagueId")), "Betting")
-        pagerAdapter.addFragment(LeaderboardFragment(), "Leaderboard")
+        pagerAdapter.addFragment(LeaderboardFragment(this.arguments?.getInt("leagueId")), "Leaderboard")
         this.viewPagerDetail.adapter = pagerAdapter
         val tabTitles: Array<String> = arrayOf("Betting", "Leaderboard")
         val tabIcons: Array<Int> = arrayOf(R.drawable.ic_baseline_sports_24, R.drawable.ic_baseline_group_24)

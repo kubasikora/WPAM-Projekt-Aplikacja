@@ -1,17 +1,17 @@
 package pw.wpam.polityper.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recycler_view_leaders.view.*
 import pw.wpam.polityper.R
-import pw.wpam.polityper.models.LeaderHeader
+import pw.wpam.polityper.models.Participant
 
 class LeaderboardRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var items: List<LeaderHeader> = ArrayList()
+    private var items: List<Participant> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return LeaderboardViewHolder(
@@ -32,9 +32,18 @@ class LeaderboardRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(
     override fun getItemCount(): Int {
         return items.size
     }
+    fun update(participantList: List<Participant>){
+        val data = ArrayList<Participant>()
+        for (participant in participantList) {
+            data.add(participant)
+            Log.d("INFO", participant.toString())
+        }
+        items = data
+        this.notifyDataSetChanged()
+    }
 
-    fun submitList(leadersList: List<LeaderHeader>) {
-        items = leadersList
+    fun submitList(participantsList: List<Participant>) {
+        items = participantsList
     }
 
     class LeaderboardViewHolder
@@ -48,9 +57,9 @@ class LeaderboardRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(
             //set on click listiner
         }
 
-        fun bind(leaderHeader: LeaderHeader) {
-            name.setText(leaderHeader.username)
-            score.setText(leaderHeader.score.toString())
+        fun bind(participant: Participant) {
+            name.setText(participant.user.username)
+            score.setText(participant.points.toString())
         }
 
     }

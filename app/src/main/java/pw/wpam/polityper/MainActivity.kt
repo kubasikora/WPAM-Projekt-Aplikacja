@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import pw.wpam.polityper.services.AuthService
 import pw.wpam.polityper.services.BetService
+import pw.wpam.polityper.services.LeaderboardService
 import pw.wpam.polityper.services.UserLeaguesService
 
 class MainActivity : AppCompatActivity() {
@@ -14,5 +15,6 @@ class MainActivity : AppCompatActivity() {
         AuthService.setContext(context)
         UserLeaguesService.setContext(context)
         BetService.setContext(context)
+        LeaderboardService.setContext(context)
     }
 }

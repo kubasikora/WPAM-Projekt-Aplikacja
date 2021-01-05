@@ -10,15 +10,20 @@ import kotlinx.android.synthetic.main.fragment_leaderboard.*
 import pw.wpam.polityper.R
 import pw.wpam.polityper.adapters.LeaderboardRecyclerAdapter
 import pw.wpam.polityper.adapters.TopSpacingItemDecoration
-import pw.wpam.polityper.models.LeaderHeader
+import pw.wpam.polityper.models.Participant
+import pw.wpam.polityper.services.LeaderboardService
 
-class LeaderboardFragment: Fragment() {
-
+class LeaderboardFragment(leagueId: Int?): Fragment() {
     private lateinit var leaderboardRecyclerAdapter: LeaderboardRecyclerAdapter
+    private var leagueId = leagueId
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        LeaderboardService.getLeaders(leagueId) { success, participants ->
+            leaderboardRecyclerAdapter.update(participants)
+        }
         return inflater.inflate(R.layout.fragment_leaderboard, container, false)
     }
 
@@ -28,7 +33,7 @@ class LeaderboardFragment: Fragment() {
         addDataSet()
     }
     private fun addDataSet(){
-        val data = ArrayList<LeaderHeader>()
+        val data = ArrayList<Participant>()
         leaderboardRecyclerAdapter.submitList(data)
     }
 
