@@ -1,7 +1,6 @@
 package pw.wpam.polityper.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,14 +11,13 @@ import pw.wpam.polityper.R
 import pw.wpam.polityper.adapters.LeagueListRecyclerAdapter
 import pw.wpam.polityper.adapters.TopSpacingItemDecoration
 import pw.wpam.polityper.models.League
-import pw.wpam.polityper.models.Participant
-import pw.wpam.polityper.services.UserLeaguesService
+import pw.wpam.polityper.services.LeagueService
 
 class LeaguesFragment : Fragment() {
     private lateinit var leagueListAdapter: LeagueListRecyclerAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        UserLeaguesService.getUserParticipants { success, participants ->
+        LeagueService.getUserParticipants { success, participants ->
         leagueListAdapter.update(participants)
         }
         return inflater.inflate(R.layout.fragment_leagues, container, false)

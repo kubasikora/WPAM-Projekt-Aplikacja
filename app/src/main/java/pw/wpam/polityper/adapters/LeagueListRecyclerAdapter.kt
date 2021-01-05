@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.recycler_view_league.view.*
 import pw.wpam.polityper.R
 import pw.wpam.polityper.models.Participant
 import pw.wpam.polityper.models.Tournament
+import pw.wpam.polityper.services.LeagueService
 import kotlin.collections.ArrayList
 
 class LeagueListRecyclerAdapter(var mContext: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -66,7 +67,12 @@ class LeagueListRecyclerAdapter(var mContext: Context) : RecyclerView.Adapter<Re
                 val position = adapterPosition
                 val leagueId = items[position].id
                 val bundle = bundleOf(Pair("leagueId", leagueId))
-                navController.navigate(R.id.action_dashboardFragment_to_leagueDetailFragment,bundle)
+                if(leagueId == 0){
+                    LeagueService.createNewLeague("nowaLigaZApki",1){
+                        success,someString-> Log.d("INFO:",someString)
+                    }
+                }
+                else{ navController.navigate(R.id.action_dashboardFragment_to_leagueDetailFragment,bundle)}
             }
         }
 
