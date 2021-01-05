@@ -19,7 +19,7 @@ class LeaguesFragment : Fragment() {
     private lateinit var leagueListAdapter: LeagueListRecyclerAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        UserLeaguesService.getUserLeagues() { success, participants ->
+        UserLeaguesService.getUserParticipants { success, participants ->
         leagueListAdapter.update(participants)
         }
         return inflater.inflate(R.layout.fragment_leagues, container, false)

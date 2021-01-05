@@ -83,7 +83,12 @@
         android:id="@+id/leagueDetailFragment"
         android:name="pw.wpam.polityper.fragments.LeagueDetailFragment"
         android:label="fragment_league_detail"
-        tools:layout="@layout/fragment_league_detail" />
+        tools:layout="@layout/fragment_league_detail" >
+        <argument
+            android:name="leagueId"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/registrationConfirmFragment"

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -62,7 +63,10 @@ class LeagueListRecyclerAdapter(var mContext: Context) : RecyclerView.Adapter<Re
         init {
             itemView.setOnClickListener {view ->
                 val navController: NavController = view.findNavController()
-                navController.navigate(R.id.action_dashboardFragment_to_leagueDetailFragment)
+                val position = adapterPosition
+                val leagueId = items[position].id
+                val bundle = bundleOf(Pair("leagueId", leagueId))
+                navController.navigate(R.id.action_dashboardFragment_to_leagueDetailFragment,bundle)
             }
         }
 

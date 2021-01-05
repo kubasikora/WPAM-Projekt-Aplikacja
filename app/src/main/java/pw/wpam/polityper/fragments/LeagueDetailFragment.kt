@@ -1,6 +1,7 @@
 package pw.wpam.polityper.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import pw.wpam.polityper.adapters.ViewPageAdapter
 class LeagueDetailFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_league_detail, container, false)
+        Log.d("LigaId", this.arguments?.getInt("leagueId").toString())
         return view
     }
 
@@ -23,7 +25,7 @@ class LeagueDetailFragment : Fragment() {
 
     private fun setUpTabs(){
         val pagerAdapter = ViewPageAdapter(this.requireActivity())
-        pagerAdapter.addFragment(LeagueBetsFragment(), "Betting")
+        pagerAdapter.addFragment(LeagueBetsFragment(this.arguments?.getInt("leagueId")), "Betting")
         pagerAdapter.addFragment(LeaderboardFragment(), "Leaderboard")
         this.viewPagerDetail.adapter = pagerAdapter
         val tabTitles: Array<String> = arrayOf("Betting", "Leaderboard")
