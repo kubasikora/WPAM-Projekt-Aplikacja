@@ -56,6 +56,9 @@
             app:destination="@id/leagueDetailFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:popEnterAnim="@android:anim/slide_in_left" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_addLeagueFragment"
+            app:destination="@id/addLeagueFragment" />
     </fragment>
 
     <fragment
@@ -103,5 +106,10 @@
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/addLeagueFragment"
+        android:name="pw.wpam.polityper.fragments.AddLeagueFragment"
+        android:label="fragment_add_league"
+        tools:layout="@layout/fragment_add_league" />
 
 </navigation>

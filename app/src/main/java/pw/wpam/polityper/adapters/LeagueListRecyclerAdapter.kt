@@ -69,7 +69,7 @@ class LeagueListRecyclerAdapter(var mContext: Context) : RecyclerView.Adapter<Re
                 val bundle = bundleOf(Pair("leagueId", leagueId))
                 if(leagueId == 0){
                     LeagueService.createNewLeague("nowaLigaZApki",1){
-                        success,someString-> Log.d("INFO:",someString)
+                        success,info-> Log.d("INFO:",info)
                     }
                 }
                 else{ navController.navigate(R.id.action_dashboardFragment_to_leagueDetailFragment,bundle)}

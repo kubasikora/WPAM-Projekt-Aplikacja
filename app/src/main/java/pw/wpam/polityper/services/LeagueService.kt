@@ -12,9 +12,8 @@ import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import org.json.JSONObject
 import pw.wpam.polityper.R
-import pw.wpam.polityper.models.Bet
-import pw.wpam.polityper.models.Contestant
 import pw.wpam.polityper.models.Participant
+import pw.wpam.polityper.models.Tournament
 
 object LeagueService {
     val gson = Gson()
@@ -97,6 +96,43 @@ object LeagueService {
         this.queue?.add(createLeague)
     }
 
+
+    fun getTournamentsFromSport(sport: String,
+    complete: (Boolean, ArrayList<Tournament>) -> Unit){
+        val urlBase: String? = this.context?.getString(R.string.be_url)
+        val url = "${urlBase}/api/teams/tournaments/active?sport=${sport}"
+        Log.d("URL:", url)
+
+        val sharedPref = LeagueService.context?.getSharedPreferences("auth", Context.MODE_PRIVATE)
+        val token = sharedPref?.getString("jwt", "None")
+
+        val tournamentsRequest = object: JsonArrayRequest(
+                Request.Method.GET, url, null,
+                Response.Listener { response ->
+                    var tournaments: MutableList<Tournament> = ArrayList()
+                    for (i in 0 until response.length()) {
+                        val tournament = response.getJSONObject(i)
+                        Log.d("Tournament:",tournament.toString())
+                        tournaments.add(BetService.gson.fromJson(tournament.toString(), Tournament::class.java))
+                    }
+                    Log.d("Tournament:",tournaments.size.toString())
+                    complete(true, tournaments as ArrayList<Tournament>)
+                },
+                Response.ErrorListener { error ->
+                    Log.d("ERROR", error.toString())
+                }
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Bearer $token"
+                return headers
+            }
+        }
+
+        tournamentsRequest.retryPolicy = this.retryPolicy
+
+        this.queue?.add(tournamentsRequest)
+    }
 /*
     fun createNewParticipant(name: String, tournamentId: Int,
                              complete: (Boolean, String) -> Unit){

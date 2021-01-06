@@ -1,12 +1,16 @@
 package pw.wpam.polityper.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_leagues.*
+import kotlinx.android.synthetic.main.fragment_leagues.view.*
 import pw.wpam.polityper.R
 import pw.wpam.polityper.adapters.LeagueListRecyclerAdapter
 import pw.wpam.polityper.adapters.TopSpacingItemDecoration
@@ -20,9 +24,14 @@ class LeaguesFragment : Fragment() {
         LeagueService.getUserParticipants { success, participants ->
         leagueListAdapter.update(participants)
         }
-        return inflater.inflate(R.layout.fragment_leagues, container, false)
 
-
+        val view = inflater.inflate(R.layout.fragment_leagues, container, false)
+        view.newLeagueButton.setOnClickListener {
+            val navController: NavController = view.findNavController()
+            navController.navigate(R.id.action_dashboardFragment_to_addLeagueFragment)
+            Log.d("INFO:","CLICK")
+        }
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
