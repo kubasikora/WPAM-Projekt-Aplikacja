@@ -51,7 +51,6 @@ class BetsListRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
         val data = ArrayList<Bet>()
         for (bet in betsList) {
             data.add(bet)
-            Log.d("INFO", bet.match.playerOne.name)
         }
         items = data
         this.notifyDataSetChanged()
@@ -78,9 +77,15 @@ class BetsListRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
             itemView.betPlacer.setOnClickListener {
                 val position = adapterPosition
                 val betId = items[position].id
-                BetService.placeBet(betId, firstTeamPrediction.text.toString(), secondTeamPrediction.text.toString()){
-                    success, newBet->
-                    Toast.makeText(itemView.context,"Bet Placed", Toast.LENGTH_SHORT).show()
+                if (itemView.firstTeamPrediction.text.toString() == "" &&
+                        itemView.secondTeamPrediction.text.toString() == ""){
+                    Toast.makeText(itemView.context, "Put a number in prediction", Toast.LENGTH_SHORT).show()
+                }
+                else{
+                    Log.d("Info","proba")
+                BetService.placeBet(betId, firstTeamPrediction.text.toString(), secondTeamPrediction.text.toString()) { success, newBet ->
+                    Toast.makeText(itemView.context, "Bet Placed", Toast.LENGTH_SHORT).show()
+                }
                 }
             }
             itemView.chujowyGuziczek.setOnClickListener { view ->
@@ -138,6 +143,16 @@ class BetsListRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
                 if(bet.valid) {
                     firstTeamPrediction.setText(bet.playerOnePrediction.toString())
                     secondTeamPrediction.setText(bet.playerTwoPrediction.toString())
+                }
+                else {
+                    firstTeamPrediction.setText("")
+                    secondTeamPrediction.setText("")
+                    firstTeamScore.setText(null)
+                    secondTeamScore.setText(null)
+                    placeBetButton.isClickable = true
+                    firstTeamPrediction.isFocusable = true
+                    secondTeamPrediction.isFocusable = true
+                    backgroundColor.setColorFilter(Color.parseColor("#FFFFFFFF"), PorterDuff.Mode.SRC)
                 }
             }
         }

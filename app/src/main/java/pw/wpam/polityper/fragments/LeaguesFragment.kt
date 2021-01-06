@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,11 +22,14 @@ class LeaguesFragment : Fragment() {
     private lateinit var leagueListAdapter: LeagueListRecyclerAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_leagues, container, false)
+        view.loadingSpinner.isVisible = true
         LeagueService.getUserParticipants { success, participants ->
-        leagueListAdapter.update(participants)
+            leagueListAdapter.update(participants)
+            view.loadingSpinner.isVisible= false
         }
 
-        val view = inflater.inflate(R.layout.fragment_leagues, container, false)
+
         view.newLeagueButton.setOnClickListener {
             val navController: NavController = view.findNavController()
             navController.navigate(R.id.action_dashboardFragment_to_addLeagueFragment)

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -43,6 +44,11 @@ class LoginFragment : Fragment() {
                 }
             }
         })
+
+        userViewModel.loading.observe(this.viewLifecycleOwner,  Observer { loading ->
+            view.loadingSpinner.isVisible = loading
+        })
+
         userViewModel.loginSuccess.observe(this.viewLifecycleOwner, Observer { success ->
             if(success) {
                 if(navController.currentDestination?.id == R.id.loginFragment) {

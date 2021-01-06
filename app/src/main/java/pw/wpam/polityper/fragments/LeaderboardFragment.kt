@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_leaderboard.*
+import kotlinx.android.synthetic.main.fragment_register.view.*
 import pw.wpam.polityper.R
 import pw.wpam.polityper.adapters.LeaderboardRecyclerAdapter
 import pw.wpam.polityper.adapters.TopSpacingItemDecoration
@@ -21,10 +23,13 @@ class LeaderboardFragment(leagueId: Int?): Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val view = inflater.inflate(R.layout.fragment_leaderboard, container, false)
+        view.loadingSpinner.isVisible = true
         LeaderboardService.getLeaders(leagueId) { success, participants ->
             leaderboardRecyclerAdapter.update(participants)
+            view.loadingSpinner.isVisible = false
         }
-        return inflater.inflate(R.layout.fragment_leaderboard, container, false)
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
