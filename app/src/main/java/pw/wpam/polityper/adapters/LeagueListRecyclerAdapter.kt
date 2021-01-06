@@ -1,6 +1,7 @@
 package pw.wpam.polityper.adapters
 
 import android.content.Context
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -46,7 +47,6 @@ class LeagueListRecyclerAdapter(var mContext: Context) : RecyclerView.Adapter<Re
             data.add(participant.league)
             Log.d("INFO", participant.league.name)
         }
-        data.add(League(0, Tournament(0,"",""),"Add New League","",""))
         items = data
         this.notifyDataSetChanged()
     }
@@ -66,13 +66,11 @@ class LeagueListRecyclerAdapter(var mContext: Context) : RecyclerView.Adapter<Re
                 val navController: NavController = view.findNavController()
                 val position = adapterPosition
                 val leagueId = items[position].id
-                val bundle = bundleOf(Pair("leagueId", leagueId))
-                if(leagueId == 0){
-                    LeagueService.createNewLeague("nowaLigaZApki",1){
-                        success,info-> Log.d("INFO:",info)
-                    }
-                }
-                else{ navController.navigate(R.id.action_dashboardFragment_to_leagueDetailFragment,bundle)}
+                val leagueKey = items[position].leagueKey
+                val bundle = Bundle()
+                bundle.putInt("leagueId", leagueId)
+                bundle.putString("leagueKey", leagueKey)
+                 navController.navigate(R.id.action_dashboardFragment_to_leagueDetailFragment,bundle)
             }
         }
 

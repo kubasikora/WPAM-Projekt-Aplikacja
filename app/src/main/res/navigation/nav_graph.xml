@@ -91,6 +91,10 @@
             android:name="leagueId"
             android:defaultValue="0"
             app:argType="integer" />
+        <argument
+            android:name="leagueKey"
+            app:argType="string"
+            android:defaultValue=" " />
     </fragment>
 
     <fragment
@@ -110,6 +114,10 @@
         android:id="@+id/addLeagueFragment"
         android:name="pw.wpam.polityper.fragments.AddLeagueFragment"
         android:label="fragment_add_league"
-        tools:layout="@layout/fragment_add_league" />
+        tools:layout="@layout/fragment_add_league" >
+        <action
+            android:id="@+id/action_addLeagueFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
 
 </navigation>

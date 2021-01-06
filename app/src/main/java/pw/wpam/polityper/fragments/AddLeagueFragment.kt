@@ -10,6 +10,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.fragment_add_league.view.*
 import pw.wpam.polityper.R
 import pw.wpam.polityper.models.Tournament
@@ -32,7 +34,8 @@ class AddLeagueFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view =  inflater.inflate(R.layout.fragment_add_league, container, false)
-
+        view.joinLeague.isClickable=true
+        view.createNewLeague.isClickable=true
         sportChoose = view.spinnerSport
         tournamentChoose = view.spinnerTournament
 
@@ -64,29 +67,36 @@ class AddLeagueFragment : Fragment() {
                     }
                     tournamentChoose.adapter = ArrayAdapter<String>(view.context, android.R.layout.simple_dropdown_item_1line ,tournamentsNames)
                 }
-                Toast.makeText(view.context,"You Selected ${sports.get(p2)}", Toast.LENGTH_SHORT).show()
             }
 
         }
         tournamentChoose.adapter = ArrayAdapter<String>(view.context, android.R.layout.simple_dropdown_item_1line ,tournamentsNames)
         tournamentChoose.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                Log.d("INFO","Nothing")
-                Toast.makeText(view.context,"There are no active leagues in this sport", Toast.LENGTH_SHORT).show()
             }
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 selectedTournament = tournamentObjectList.get(p2)
-                Toast.makeText(view.context,"${tournamentObjectList.get(p2).name} with id ${tournamentObjectList.get(p2).id}", Toast.LENGTH_SHORT).show()
-                Log.d("TournamentsNames", selectedTournament!!.name)
             }
         }
 
         view.createNewLeague.setOnClickListener{
-            Toast.makeText(view.context,"Creating League in ${selectedTournament!!.name}", Toast.LENGTH_SHORT).show()
+            LeagueService.createNewLeague(view.newLeagueNameInput.text.toString(),selectedTournament!!){
+                success, newLeagueKey -> LeagueService.createNewParticipant(newLeagueKey){
+                success, successMessage -> Toast.makeText(view.context,successMessage, Toast.LENGTH_SHORT).show()
+            }
+            }
+            view.createNewLeague.isClickable=true
+            val navController: NavController = view.findNavController()
+            navController.navigate(R.id.action_addLeagueFragment_to_dashboardFragment)
         }
         view.joinLeague.setOnClickListener{
-            Toast.makeText(view.context,"Joining League", Toast.LENGTH_SHORT).show()
+            LeagueService.createNewParticipant(view.leagueKey.text.toString()){
+                success, successMessage -> Toast.makeText(view.context,successMessage, Toast.LENGTH_SHORT).show()
+            }
+            val navController: NavController = view.findNavController()
+            navController.navigate(R.id.action_addLeagueFragment_to_dashboardFragment)
+            view.joinLeague.isClickable=false
         }
 
         return view

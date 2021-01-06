@@ -12,6 +12,8 @@ import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import org.json.JSONObject
 import pw.wpam.polityper.R
+import pw.wpam.polityper.models.League
+import pw.wpam.polityper.models.LeagueShort
 import pw.wpam.polityper.models.Participant
 import pw.wpam.polityper.models.Tournament
 
@@ -62,7 +64,7 @@ object LeagueService {
         this.queue?.add(participantRequest)
     }
 
-    fun createNewLeague(name: String, tournamentId: Int,
+    fun createNewLeague(name: String, tournament: Tournament,
                         complete: (Boolean, String) -> Unit){
         val urlBase: String? = this.context?.getString(R.string.be_url)
         val url = "${urlBase}/api/betting/post_league"
@@ -70,16 +72,18 @@ object LeagueService {
         val jsonBody = JSONObject()
         jsonBody.put("name", name)
         jsonBody.put("leagueKey","someRandKey")
-        jsonBody.put("tournament", tournamentId)
+        jsonBody.put("tournament", tournament.id)
         val sharedPref = LeagueService.context?.getSharedPreferences("auth", Context.MODE_PRIVATE)
         val token = sharedPref?.getString("jwt", "None")
 
         val createLeague = object: JsonObjectRequest(Request.Method.POST, url, jsonBody,
                 Response.Listener { response ->
-                    complete(true, "Created")
+
+                    val leagueKey = LeagueService.gson.fromJson(response.toString(), LeagueShort::class.java).leagueKey
+                    complete(true, leagueKey)
                 },
                 Response.ErrorListener { error ->
-                    complete(false, "Not Created")
+                    complete(false, "Something went wrong")
                 }
         ) {
             override fun getBodyContentType(): String {
@@ -133,25 +137,23 @@ object LeagueService {
 
         this.queue?.add(tournamentsRequest)
     }
-/*
-    fun createNewParticipant(name: String, tournamentId: Int,
-                             complete: (Boolean, String) -> Unit){
+
+    fun createNewParticipant(leagueKey: String, complete: (Boolean, String) -> Unit){
         val urlBase: String? = this.context?.getString(R.string.be_url)
-        val url = "${urlBase}/api/betting/post_participant"
+        val url = "${urlBase}/api/betting/league/${leagueKey}/join"
 
         val jsonBody = JSONObject()
-        jsonBody.put("name", name)
-        jsonBody.put("leagueKey","someRandKey")
-        jsonBody.put("tournament", tournamentId)
+        jsonBody.put("points", 0)
+
         val sharedPref = LeagueService.context?.getSharedPreferences("auth", Context.MODE_PRIVATE)
         val token = sharedPref?.getString("jwt", "None")
 
-        val createLeague = object: JsonObjectRequest(Request.Method.POST, url, jsonBody,
+        val createParticipant = object: JsonObjectRequest(Request.Method.POST, url, jsonBody,
                 Response.Listener { response ->
-                    complete(true, "Created")
+                    complete(true, "Joined")
                 },
                 Response.ErrorListener { error ->
-                    complete(false, "Not Created")
+                    complete(false, "Wrong league key")
                 }
         ) {
             override fun getBodyContentType(): String {
@@ -164,8 +166,8 @@ object LeagueService {
             }
         }
 
-        createLeague.retryPolicy = LeagueService.retryPolicy
-        this.queue?.add(createLeague)
+        createParticipant.retryPolicy = LeagueService.retryPolicy
+        this.queue?.add(createParticipant)
     }
-*/
+
 }

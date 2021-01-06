@@ -40,7 +40,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="8dp"
                 android:hint="Enter league key"
-                android:imeActionLabel="@string/action_sign_in_short"
+                android:maxLength="6"
                 android:imeOptions="actionNext"
                 android:selectAllOnFocus="true"
                 android:textColor="@color/textColor"

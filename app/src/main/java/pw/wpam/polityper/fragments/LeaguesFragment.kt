@@ -34,6 +34,12 @@ class LeaguesFragment : Fragment() {
         return view
     }
 
+    override fun onResume() {
+        super.onResume()
+        LeagueService.getUserParticipants { success, participants ->
+            leagueListAdapter.update(participants)
+        }
+    }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initRecyclerView()
