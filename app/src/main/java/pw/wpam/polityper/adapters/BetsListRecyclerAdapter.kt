@@ -4,20 +4,18 @@ package pw.wpam.polityper.adapters
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recycler_view_bet.view.*
 import pw.wpam.polityper.R
 import pw.wpam.polityper.models.Bet
-import pw.wpam.polityper.models.League
-import pw.wpam.polityper.models.Participant
-import pw.wpam.polityper.models.Tournament
 import pw.wpam.polityper.services.BetService
 import java.time.LocalDate
 import java.time.LocalTime
@@ -84,6 +82,16 @@ class BetsListRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
                     success, newBet->
                     Toast.makeText(itemView.context,"Bet Placed", Toast.LENGTH_SHORT).show()
                 }
+            }
+            itemView.chujowyGuziczek.setOnClickListener { view ->
+                val position = adapterPosition
+                val matchId = items[position].match.id
+                val navController: NavController = view.findNavController()
+
+                val bundle = Bundle()
+                bundle.putInt("matchId", matchId)
+
+                navController.navigate(R.id.action_leagueDetailFragment_to_matchDetailFragment, bundle)
             }
         }
 

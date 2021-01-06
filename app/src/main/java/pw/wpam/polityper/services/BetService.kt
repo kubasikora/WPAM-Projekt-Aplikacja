@@ -26,10 +26,44 @@ object BetService {
             DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
             DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
     )
+
     fun setContext(context: Context){
         this.context = context
         this.queue = Volley.newRequestQueue(this.context)
     }
+
+
+    fun getMatchStatistics(matchId: Int, complete: (Boolean, MatchStats?) -> Unit) {
+        val urlBase = context?.getString(R.string.be_url)
+        val url = "${urlBase}/api/teams/matches/stats/${matchId}"
+
+        val sharedPref = context?.getSharedPreferences("auth", Context.MODE_PRIVATE)
+        val token = sharedPref?.getString("jwt", "None")
+
+        val statsRequest = object : JsonObjectRequest (
+            Request.Method.GET, url, null,
+            Response.Listener { response ->
+                val stats = AuthService.gson.fromJson(response.toString(), MatchStats::class.java)
+                Log.d("BET", stats.toString())
+                complete(true, stats)
+            },
+            Response.ErrorListener { error ->
+                Log.d("ERROR", error.toString())
+                complete(false, null)
+            }
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Bearer $token"
+                return headers
+            }
+        }
+
+        statsRequest.retryPolicy = this.retryPolicy
+
+        this.queue?.add(statsRequest)
+    }
+
     fun getBetsInLeague(leagueId: Int?, complete: (Boolean, ArrayList<Bet>) -> Unit) {
         val urlBase = context?.getString(R.string.be_url)
         val url = "${urlBase}/api/betting/bets/mine/inLeague?league=${leagueId}"
@@ -84,6 +118,7 @@ object BetService {
             override fun getBodyContentType(): String {
                 return "application/json; charset=utf-8"
             }
+
             override fun getHeaders(): MutableMap<String, String> {
                 val headers = HashMap<String, String>()
                 headers["Authorization"] = "Bearer $token"
