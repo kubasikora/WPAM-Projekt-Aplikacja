@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_league_bets.*
+import kotlinx.android.synthetic.main.fragment_leagues.view.*
 import pw.wpam.polityper.R
 import pw.wpam.polityper.adapters.BetsListRecyclerAdapter
 import pw.wpam.polityper.adapters.TopSpacingItemDecoration
@@ -19,10 +21,13 @@ class LeagueBetsFragment(leagueId: Int?) : Fragment(){
     private var leagueId = leagueId
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_league_bets, container, false)
+        view.loadingSpinner.isVisible = true
         BetService.getBetsInLeague(leagueId) { success, participants ->
             betListAdapter.update(participants)
+            view.loadingSpinner.isVisible=false
         }
-        return inflater.inflate(R.layout.fragment_league_bets, container, false)
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
