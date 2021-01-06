@@ -9,17 +9,59 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPagerPlayerTwoForm"
+            android:layout_width="150dp"
+            android:layout_height="245dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/statsPlayerTwo" />
 
         <TextView
-            android:id="@+id/matchDetailExampleString"
-            android:layout_width="144dp"
-            android:layout_height="39dp"
-            android:textAlignment="center"
+            android:id="@+id/statsPlayerOne"
+            android:layout_width="150dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/textColor"
             android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/statsPlayerTwo"
+            android:layout_width="150dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:textAlignment="textEnd"
+            android:textColor="@color/textColor"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/venueMapView"
+            android:layout_width="412dp"
+            android:layout_height="334dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewPagerPlayerTwoForm" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPagerPlayerOneForm"
+            android:layout_width="150dp"
+            android:layout_height="245dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/statsPlayerOne" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

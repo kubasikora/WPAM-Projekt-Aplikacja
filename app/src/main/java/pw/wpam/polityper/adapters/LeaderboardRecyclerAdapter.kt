@@ -32,6 +32,7 @@ class LeaderboardRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(
     override fun getItemCount(): Int {
         return items.size
     }
+
     fun update(participantList: List<Participant>){
         val data = ArrayList<Participant>()
         for (participant in participantList) {

@@ -32,6 +32,7 @@ class LeaderboardFragment(leagueId: Int?): Fragment() {
         initRecyclerView()
         addDataSet()
     }
+
     private fun addDataSet(){
         val data = ArrayList<Participant>()
         leaderboardRecyclerAdapter.submitList(data)

@@ -12,6 +12,6 @@ data class MatchStats (
     val playerTwoResult: Int,
     val outcome: String,
     val finished: Boolean,
-    val playerOneForm: ArrayList<Match>,
-    val playerTwoForm: ArrayList<Match>
+    val playerOneForm: ArrayList<String>,
+    val playerTwoForm: ArrayList<String>
 )
