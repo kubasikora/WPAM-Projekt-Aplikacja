@@ -17,13 +17,27 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/dateOfGame"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                android:gravity="center"
-                android:text="GameDate" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/dateOfGame"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="GameDate" />
+
+                <Button
+                    android:id="@+id/chujowyGuziczek"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_baseline_help_24" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/container1"
