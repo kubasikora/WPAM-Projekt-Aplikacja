@@ -1,11 +1,15 @@
 package pw.wpam.polityper.adapters
 
 
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recycler_view_bet.view.*
 import pw.wpam.polityper.R
@@ -63,7 +67,7 @@ class BetsListRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
         val secondTeam = itemView.secondTeamName
         val firstTeamscore = itemView.firstTeamPrediction
         val secondTeamScore = itemView.secondTeamPrediction
-
+        var backgroundColor = itemView.container1.background
         init {
             itemView.betPlacer.setOnClickListener {
                 val position = adapterPosition
@@ -77,14 +81,40 @@ class BetsListRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
         fun bind(bet: Bet){
             firstTeam.setText(bet.match.playerOne.name)
             secondTeam.setText(bet.match.playerTwo.name)
-            if (bet.valid){
-                if(bet.match.finished) {
-                    firstTeamscore.setText(bet.match.playerOneResult.toString())
-                    firstTeamscore.isFocusable = false
-                    secondTeamScore.setText(bet.match.playerTwoResult.toString())
-                    secondTeamScore.isFocusable = false
+            colorBets(bet)
+        }
+
+        fun colorBets(bet: Bet){
+            if(bet.match.finished) {
+                firstTeamscore.setText(bet.match.playerOneResult.toString())
+                firstTeamscore.isFocusable = false
+                secondTeamScore.setText(bet.match.playerTwoResult.toString())
+                secondTeamScore.isFocusable = false
+                if(bet.valid==false){
+                    backgroundColor.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC)
+                }
+                else if (bet.match.playerOneResult == bet.playerOnePrediction &&
+                        bet.match.playerTwoResult == bet.playerTwoPrediction){
+                    backgroundColor.setColorFilter(Color.parseColor("#8000FF00"), PorterDuff.Mode.SRC)
+                }
+                else if(bet.match.playerOneResult > bet.match.playerTwoResult &&
+                        bet.playerOnePrediction > bet.playerTwoPrediction){
+                    backgroundColor.setColorFilter(Color.parseColor("#80FFFF00"), PorterDuff.Mode.SRC)
+                }
+                else if(bet.match.playerOneResult < bet.match.playerTwoResult &&
+                        bet.playerOnePrediction < bet.playerTwoPrediction){
+                    backgroundColor.setColorFilter(Color.parseColor("#80FFFF00"), PorterDuff.Mode.SRC)
+                }
+                else if(bet.match.playerOneResult == bet.match.playerTwoResult &&
+                        bet.playerOnePrediction == bet.playerTwoPrediction) {
+                    backgroundColor.setColorFilter(Color.parseColor("#80FFFF00"), PorterDuff.Mode.SRC)
                 }
                 else{
+                    backgroundColor.setColorFilter(Color.parseColor("#80FF0000"), PorterDuff.Mode.SRC)
+                }
+
+            } else{
+                if(bet.valid) {
                     firstTeamscore.setText(bet.playerOnePrediction.toString())
                     secondTeamScore.setText(bet.playerTwoPrediction.toString())
                 }
