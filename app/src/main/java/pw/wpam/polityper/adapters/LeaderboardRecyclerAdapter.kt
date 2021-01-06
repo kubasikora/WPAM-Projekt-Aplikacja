@@ -36,7 +36,6 @@ class LeaderboardRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(
         val data = ArrayList<Participant>()
         for (participant in participantList) {
             data.add(participant)
-            Log.d("INFO", participant.toString())
         }
         items = data
         this.notifyDataSetChanged()

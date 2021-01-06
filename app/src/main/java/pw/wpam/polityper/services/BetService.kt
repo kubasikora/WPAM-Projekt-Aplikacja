@@ -33,20 +33,16 @@ object BetService {
     fun getBetsInLeague(leagueId: Int?, complete: (Boolean, ArrayList<Bet>) -> Unit) {
         val urlBase = context?.getString(R.string.be_url)
         val url = "${urlBase}/api/betting/bets/mine/inLeague?league=${leagueId}"
-        Log.d("URL:", url)
         val sharedPref = context?.getSharedPreferences("auth", Context.MODE_PRIVATE)
         val token = sharedPref?.getString("jwt", "None")
-
         val betRequest = object : JsonArrayRequest(
                 Request.Method.GET, url, null,
                 Response.Listener { response ->
                     var bets: MutableList<Bet> = ArrayList()
                     for (i in 0 until response.length()) {
                         val bet = response.getJSONObject(i)
-                        Log.d("Bet:",bet.toString())
                         bets.add(gson.fromJson(bet.toString(), Bet::class.java))
                     }
-                    Log.d("Size:", bets.size.toString())
                     complete(true, bets as ArrayList<Bet>)
                 },
                 Response.ErrorListener { error ->

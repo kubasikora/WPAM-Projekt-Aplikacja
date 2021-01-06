@@ -13,74 +13,104 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/container1"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="#FFFFFF"
-            android:padding="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/firstTeamName"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
+                android:id="@+id/dateOfGame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
                 android:gravity="center"
-                android:text="Host"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp" />
+                android:text="GameDate" />
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:id="@+id/container1"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/firstTeamName"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:text="Host"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/firstTeamScore"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text=" "
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/firstTeamPrediction"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:inputType="number" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/secondTeamPrediction"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:inputType="number" />
+                        <EditText
+                            android:id="@+id/firstTeamPrediction"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:ems="10"
+                            android:inputType="number" />
 
+                        <EditText
+                            android:id="@+id/secondTeamPrediction"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:ems="10"
+                            android:inputType="number" />
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/betPlacer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_button"
+                        android:text="BET" />
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/betPlacer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_button"
-                    android:text="BET" />
+                <TextView
+                    android:id="@+id/secondTeamScore"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text=" "
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/secondTeamName"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:text="Visitor"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp" />
+
+
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/secondTeamName"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:gravity="center"
-                android:text="Visitor"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp" />
-
-
         </LinearLayout>
 
 

@@ -45,7 +45,6 @@ object LeagueService {
                     val participant = response.getJSONObject(i)
                     participants.add(gson.fromJson(participant.toString(), Participant::class.java))
                 }
-                Log.d("Size:", participants.size.toString())
                 complete(true, participants as ArrayList<Participant>)
             },
             Response.ErrorListener { error ->
@@ -105,7 +104,7 @@ object LeagueService {
     complete: (Boolean, ArrayList<Tournament>) -> Unit){
         val urlBase: String? = this.context?.getString(R.string.be_url)
         val url = "${urlBase}/api/teams/tournaments/active?sport=${sport}"
-        Log.d("URL:", url)
+
 
         val sharedPref = LeagueService.context?.getSharedPreferences("auth", Context.MODE_PRIVATE)
         val token = sharedPref?.getString("jwt", "None")
@@ -116,10 +115,8 @@ object LeagueService {
                     var tournaments: MutableList<Tournament> = ArrayList()
                     for (i in 0 until response.length()) {
                         val tournament = response.getJSONObject(i)
-                        Log.d("Tournament:",tournament.toString())
                         tournaments.add(BetService.gson.fromJson(tournament.toString(), Tournament::class.java))
                     }
-                    Log.d("Tournament:",tournaments.size.toString())
                     complete(true, tournaments as ArrayList<Tournament>)
                 },
                 Response.ErrorListener { error ->
