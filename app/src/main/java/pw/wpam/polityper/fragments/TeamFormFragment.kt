@@ -2,14 +2,14 @@ package pw.wpam.polityper.fragments
 
 import pw.wpam.polityper.adapters.TeamFormRecyclerAdapter
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_leaderboard.*
-import kotlinx.android.synthetic.main.fragment_team_form.view.*
+import kotlinx.android.synthetic.main.fragment_leaderboard.view.*
+import kotlinx.android.synthetic.main.fragment_team_form.view.recycler_view
 import pw.wpam.polityper.R
 import pw.wpam.polityper.adapters.TopSpacingItemDecoration
 
@@ -40,6 +40,7 @@ class TeamFormFragment(form : ArrayList<String>) : Fragment() {
     }
 
     private fun initRecyclerView(view: View){
+        view.loadingSpinner.isVisible = false
         view.recycler_view.layoutManager = LinearLayoutManager(activity)
         val topSpacingDecorator = TopSpacingItemDecoration(30)
         view.recycler_view.addItemDecoration(topSpacingDecorator)

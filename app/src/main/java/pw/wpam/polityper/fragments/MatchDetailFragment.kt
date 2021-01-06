@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.fragment_match_detail.*
 import kotlinx.android.synthetic.main.fragment_match_detail.view.*
 import pw.wpam.polityper.R
@@ -27,7 +28,9 @@ class MatchDetailFragment : Fragment() {
         view.viewPagerPlayerTwoForm.adapter = playerTwoPagerAdapter
         playerTwoPagerAdapter.addFragment(TeamFormFragment(ArrayList<String>()), "playerTwo")
 
+        view.loadingSpinner.isVisible = true
         BetService.getMatchStatistics(matchId!!) { success, stats: MatchStats? ->
+            view.loadingSpinner.isVisible = false
             view.findViewById<TextView>(R.id.statsPlayerOne).text = stats?.playerOne?.name
             view.findViewById<TextView>(R.id.statsPlayerTwo).text = stats?.playerTwo?.name
             playerOnePagerAdapter.update(stats?.playerOneForm!!)
