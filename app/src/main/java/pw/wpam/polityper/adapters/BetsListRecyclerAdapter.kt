@@ -18,8 +18,10 @@ import pw.wpam.polityper.R
 import pw.wpam.polityper.models.Bet
 import pw.wpam.polityper.services.BetService
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
+import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -108,6 +110,9 @@ class BetsListRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
         }
 
         fun colorBets(bet: Bet){
+            val localTime = LocalDateTime.now()
+            val betDate = LocalDateTime.parse(bet.match.dateOfStart,DateTimeFormatter.ISO_DATE_TIME)
+
             if(bet.match.finished) {
                 firstTeamScore.setText(bet.match.playerOneResult.toString())
                 secondTeamScore.setText(bet.match.playerTwoResult.toString())
@@ -116,6 +121,7 @@ class BetsListRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
                 placeBetButton.isClickable=false
                 firstTeamPrediction.isFocusable = false
                 secondTeamPrediction.isFocusable = false
+
                 if(bet.valid==false){
                     backgroundColor.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC)
                 }
@@ -154,18 +160,24 @@ class BetsListRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
                     secondTeamPrediction.isFocusable = true
                     backgroundColor.setColorFilter(Color.parseColor("#FFFFFFFF"), PorterDuff.Mode.SRC)
                 }
+                if( localTime > betDate){
+                    placeBetButton.isClickable=false
+                    firstTeamPrediction.isFocusable = false
+                    secondTeamPrediction.isFocusable = false
+                    backgroundColor.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC)
+                }
             }
         }
         @SuppressLint("NewApi")
         fun createDate(bet: Bet){
-            val dateOfStart = LocalDate.parse(bet.match.dateOfStart, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+            val dateOfStart = LocalDateTime.parse(bet.match.dateOfStart, DateTimeFormatter.ISO_DATE_TIME)
             val timeOfStart = LocalTime.parse(bet.match.dateOfStart, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
             val day = String.format("%02d",dateOfStart.dayOfMonth)
             val month = String.format("%02d",dateOfStart.monthValue)
             val year = String.format("%02d",dateOfStart.year)
             val ddmmyyyy = "${day}-${month}-${year}"
-            val hours = String.format("%02d",timeOfStart.hour)
-            val minutes = String.format("%02d",timeOfStart.minute)
+            val hours = String.format("%02d",dateOfStart.hour)
+            val minutes = String.format("%02d",dateOfStart.minute)
             val hhss = ", ${hours}:${minutes}"
             val date = ddmmyyyy + hhss
             dateTextView.setText(date)
