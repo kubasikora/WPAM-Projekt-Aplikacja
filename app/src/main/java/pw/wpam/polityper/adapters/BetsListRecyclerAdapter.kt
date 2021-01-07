@@ -119,8 +119,6 @@ class BetsListRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
                 firstTeamPrediction.setText(bet.playerOnePrediction.toString())
                 secondTeamPrediction.setText(bet.playerTwoPrediction.toString())
                 placeBetButton.isClickable=false
-                firstTeamPrediction.isFocusable = false
-                secondTeamPrediction.isFocusable = false
 
                 if(bet.valid==false){
                     backgroundColor.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC)
@@ -156,14 +154,10 @@ class BetsListRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
                     firstTeamScore.setText(null)
                     secondTeamScore.setText(null)
                     placeBetButton.isClickable = true
-                    firstTeamPrediction.isFocusable = true
-                    secondTeamPrediction.isFocusable = true
                     backgroundColor.setColorFilter(Color.parseColor("#FFFFFFFF"), PorterDuff.Mode.SRC)
                 }
                 if( localTime > betDate){
                     placeBetButton.isClickable=false
-                    firstTeamPrediction.isFocusable = false
-                    secondTeamPrediction.isFocusable = false
                     backgroundColor.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC)
                 }
             }
