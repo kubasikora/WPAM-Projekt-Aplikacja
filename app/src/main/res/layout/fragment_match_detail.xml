@@ -12,6 +12,55 @@
         android:layout_height="match_parent"
         android:background="@color/colorPrimary">
 
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/statsPlayerOne"
+                android:layout_width="0dp"
+                android:layout_height="75dp"
+                android:layout_weight="3"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/textColor"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/scorePlayerOne"
+                android:layout_width="0dp"
+                android:layout_height="75dp"
+                android:layout_weight="1"
+                android:layout_marginTop="16dp"
+                android:textSize="24sp"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/scorePlayerTwo"
+                android:layout_width="0dp"
+                android:layout_height="75dp"
+                android:layout_weight="1"
+                android:layout_marginTop="16dp"
+                android:textSize="24sp"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/statsPlayerTwo"
+                android:layout_width="0dp"
+                android:layout_height="75dp"
+                android:layout_weight="3"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:textAlignment="textEnd"
+                android:textColor="@color/textColor"
+                android:textSize="24sp" />
+        </LinearLayout>
+
         <ProgressBar
             android:id="@+id/loadingSpinner"
             style="?android:attr/progressBarStyle"
@@ -28,33 +77,9 @@
             android:id="@+id/viewPagerPlayerTwoForm"
             android:layout_width="150dp"
             android:layout_height="245dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/statsPlayerTwo" />
-
-        <TextView
-            android:id="@+id/statsPlayerOne"
-            android:layout_width="150dp"
-            android:layout_height="75dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:textColor="@color/textColor"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/statsPlayerTwo"
-            android:layout_width="150dp"
-            android:layout_height="75dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:textAlignment="textEnd"
-            android:textColor="@color/textColor"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/map"
@@ -70,9 +95,8 @@
             android:layout_width="150dp"
             android:layout_height="245dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/statsPlayerOne" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
