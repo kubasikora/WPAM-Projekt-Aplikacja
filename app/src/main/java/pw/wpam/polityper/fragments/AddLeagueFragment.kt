@@ -81,14 +81,20 @@ class AddLeagueFragment : Fragment() {
         }
 
         view.createNewLeague.setOnClickListener{
-            LeagueService.createNewLeague(view.newLeagueNameInput.text.toString(),selectedTournament!!){
-                success, newLeagueKey -> LeagueService.createNewParticipant(newLeagueKey){
-                success, successMessage -> Toast.makeText(view.context,successMessage, Toast.LENGTH_SHORT).show()
+            if(view.newLeagueNameInput.text.toString()==""){
+                Log.d("Denied:","No League name")
+                Toast.makeText(view.context,"Enter league name", Toast.LENGTH_SHORT).show()
             }
+            else{
+                LeagueService.createNewLeague(view.newLeagueNameInput.text.toString(),selectedTournament!!){
+                    success, newLeagueKey -> LeagueService.createNewParticipant(newLeagueKey) { success, successMessage ->
+                    Toast.makeText(view.context, successMessage, Toast.LENGTH_SHORT).show()
+                    }
+                    val navController: NavController = view.findNavController()
+                    navController.navigate(R.id.action_addLeagueFragment_to_dashboardFragment)
+                }
             }
-            view.createNewLeague.isClickable=true
-            val navController: NavController = view.findNavController()
-            navController.navigate(R.id.action_addLeagueFragment_to_dashboardFragment)
+
         }
         view.joinLeague.setOnClickListener{
             LeagueService.createNewParticipant(view.leagueKey.text.toString()){
