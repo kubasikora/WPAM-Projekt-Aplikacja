@@ -35,6 +35,7 @@ class RegisterFragment : Fragment() {
         registerViewModel.registerSuccess.observe(this.viewLifecycleOwner, Observer { success ->
             if(success){
                 navController.navigate(R.id.action_registerFragment_to_registrationConfirmFragment)
+                registerViewModel.registerSuccess.postValue(false)
             }
         })
 

@@ -22,6 +22,7 @@ import pw.wpam.polityper.R
 import pw.wpam.polityper.adapters.ViewPageAdapter
 import pw.wpam.polityper.services.BetService
 import pw.wpam.polityper.models.MatchStats
+import com.google.android.gms.maps.GoogleMap.MAP_TYPE_HYBRID
 
 class MatchDetailFragment : Fragment(), OnMapReadyCallback {
     private var mMap: GoogleMap? = null
@@ -58,12 +59,7 @@ class MatchDetailFragment : Fragment(), OnMapReadyCallback {
             playerTwoPagerAdapter.update(stats?.playerTwoForm!!)
 
             if(mMap != null && !mapSet){
-                mapSet = true
-                val position = LatLng(stats?.venue?.latitude!!, stats?.venue?.longitude!!)
-                Log.d("MAPxd", mStats?.venue?.name!!)
-                val marker = mMap?.addMarker(MarkerOptions().position(position).title(stats?.venue?.name!!))
-                marker?.showInfoWindow()
-                mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 17.0f))
+                initMap()
             }
         }
         return view
@@ -72,12 +68,17 @@ class MatchDetailFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(p0: GoogleMap?) {
         mMap = p0!!
         if(mStats != null && !mapSet){
-            mapSet = true
-            val position = LatLng(mStats?.venue?.latitude!!, mStats?.venue?.longitude!!)
-            Log.d("MAP", mStats?.venue?.name!!)
-            val marker = mMap?.addMarker(MarkerOptions().position(position).title(mStats?.venue?.name!!))
-            marker?.showInfoWindow()
-            mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 15.0f))
+            initMap()
         }
+    }
+
+    fun initMap(){
+        mapSet = true
+        val position = LatLng(mStats?.venue?.latitude!!, mStats?.venue?.longitude!!)
+        Log.d("MAP", mStats?.venue?.name!!)
+        val marker = mMap?.addMarker(MarkerOptions().position(position).title(mStats?.venue?.name!!))
+        marker?.showInfoWindow()
+        mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 16.0f))
+        mMap?.mapType = MAP_TYPE_HYBRID
     }
 }
