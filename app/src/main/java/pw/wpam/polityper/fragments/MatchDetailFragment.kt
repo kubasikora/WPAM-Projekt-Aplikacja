@@ -1,5 +1,6 @@
 package pw.wpam.polityper.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,21 +9,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.isVisible
-import androidx.fragment.app.FragmentContainerView
-import androidx.fragment.app.findFragment
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import kotlinx.android.synthetic.main.fragment_match_detail.*
 import kotlinx.android.synthetic.main.fragment_match_detail.view.*
 import pw.wpam.polityper.R
 import pw.wpam.polityper.adapters.ViewPageAdapter
 import pw.wpam.polityper.services.BetService
 import pw.wpam.polityper.models.MatchStats
 import com.google.android.gms.maps.GoogleMap.MAP_TYPE_HYBRID
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 class MatchDetailFragment : Fragment(), OnMapReadyCallback {
     private var mMap: GoogleMap? = null
@@ -55,6 +56,14 @@ class MatchDetailFragment : Fragment(), OnMapReadyCallback {
 
             view.findViewById<TextView>(R.id.statsPlayerOne).text = stats?.playerOne?.name
             view.findViewById<TextView>(R.id.statsPlayerTwo).text = stats?.playerTwo?.name
+
+            view.findViewById<TextView>(R.id.matchDetailDateTime).text = this.createDate(stats)
+
+            if(stats?.finished){
+                view.findViewById<TextView>(R.id.scorePlayerOne).text = stats?.playerOneResult.toString()
+                view.findViewById<TextView>(R.id.scorePlayerTwo).text = stats.playerTwoResult.toString()
+            }
+
             playerOnePagerAdapter.update(stats?.playerOneForm!!)
             playerTwoPagerAdapter.update(stats?.playerTwoForm!!)
 
@@ -80,5 +89,20 @@ class MatchDetailFragment : Fragment(), OnMapReadyCallback {
         marker?.showInfoWindow()
         mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 16.0f))
         mMap?.mapType = MAP_TYPE_HYBRID
+    }
+
+    @SuppressLint("NewApi")
+    fun createDate(stats: MatchStats): String {
+        val dateOfStart = LocalDateTime.parse(stats.dateOfStart, DateTimeFormatter.ISO_DATE_TIME)
+        val timeOfStart = LocalTime.parse(stats.dateOfStart, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+
+        val day = String.format("%02d", dateOfStart.dayOfMonth)
+        val month = String.format("%02d", dateOfStart.monthValue)
+        val year = String.format("%02d", dateOfStart.year)
+        val ddmmyyyy = "${day}-${month}-${year}"
+        val hours = String.format("%02d", dateOfStart.hour)
+        val minutes = String.format("%02d", dateOfStart.minute)
+        val hhss = ", ${hours}:${minutes}"
+        return ddmmyyyy + hhss
     }
 }

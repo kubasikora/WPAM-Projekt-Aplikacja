@@ -35,27 +35,31 @@
                 android:id="@+id/scorePlayerOne"
                 android:layout_width="0dp"
                 android:layout_height="75dp"
-                android:layout_weight="1"
                 android:layout_marginTop="16dp"
-                android:textSize="24sp"
-                android:text="" />
+                android:layout_weight="1"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/scorePlayerTwo"
                 android:layout_width="0dp"
                 android:layout_height="75dp"
-                android:layout_weight="1"
                 android:layout_marginTop="16dp"
-                android:textSize="24sp"
-                android:text="" />
+                android:layout_weight="1"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/statsPlayerTwo"
                 android:layout_width="0dp"
                 android:layout_height="75dp"
-                android:layout_weight="3"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:layout_weight="3"
                 android:textAlignment="textEnd"
                 android:textColor="@color/textColor"
                 android:textSize="24sp" />
@@ -73,30 +77,60 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible" />
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPagerPlayerTwoForm"
-            android:layout_width="150dp"
-            android:layout_height="245dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="350dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:context=".MapsActivity"
-            tools:layout_editor_absoluteX="-3dp" />
+            android:layout_width="373dp"
+            android:layout_height="304dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/formLayout"
+            tools:context=".MapsActivity" />
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPagerPlayerOneForm"
-            android:layout_width="150dp"
-            android:layout_height="245dp"
-            android:layout_marginStart="16dp"
+        <TextView
+            android:id="@+id/matchDetailDateTime"
+            android:layout_width="375dp"
+            android:layout_height="21dp"
+            android:textAlignment="center"
+            android:textColor="@color/textColor"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+        <LinearLayout
+            android:id="@+id/formLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/matchDetailDateTime">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPagerPlayerOneForm"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="0dp"
+                android:layout_weight="4" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPagerPlayerTwoForm"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="4" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
