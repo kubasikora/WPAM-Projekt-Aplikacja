@@ -25,9 +25,9 @@
                 android:id="@+id/statsPlayerOne"
                 android:layout_width="0dp"
                 android:layout_height="75dp"
-                android:layout_weight="3"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_weight="3"
                 android:textColor="@color/textColor"
                 android:textSize="24sp" />
 
@@ -80,9 +80,12 @@
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="373dp"
-            android:layout_height="304dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintHeight_percent="0.4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/formLayout"
@@ -134,9 +137,11 @@
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/newsFeedViewPager"
-            android:layout_width="374dp"
-            android:layout_height="279dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
