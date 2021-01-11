@@ -21,6 +21,7 @@ import pw.wpam.polityper.adapters.ViewPageAdapter
 import pw.wpam.polityper.services.BetService
 import pw.wpam.polityper.models.MatchStats
 import com.google.android.gms.maps.GoogleMap.MAP_TYPE_HYBRID
+import pw.wpam.polityper.models.Article
 import pw.wpam.polityper.services.NewsService
 import java.net.URLEncoder
 import java.time.LocalDateTime
@@ -49,16 +50,24 @@ class MatchDetailFragment : Fragment(), OnMapReadyCallback {
         view.viewPagerPlayerTwoForm.adapter = playerTwoPagerAdapter
         playerTwoPagerAdapter.addFragment(TeamFormFragment(ArrayList<String>()), "playerTwo")
 
+        val newsFeedPageAdapter = ViewPageAdapter(this.requireActivity())
+        view.newsFeedViewPager.adapter = newsFeedPageAdapter
+        newsFeedPageAdapter.addFragment(NewsFeedFragment(ArrayList<Article>()), "newsFeed")
+
         view.loadingSpinner.isVisible = true
+        view.loadingSpinner.bringToFront()
+
         BetService.getMatchStatistics(matchId!!) { success, stats: MatchStats? ->
             val query = URLEncoder.encode(stats?.playerOne?.name + " vs " + stats?.playerTwo?.name)
             NewsService.getNews(query) { success, news ->
                 Log.d("MATCH_DETAIL", news.toString())
+                newsFeedPageAdapter.updateArticles(news.articles)
             }
 
             mStats = stats!!
 
             view.loadingSpinner.isVisible = false
+            view.map.bringToFront()
             view.map.isVisible = true
 
             view.findViewById<TextView>(R.id.statsPlayerOne).text = stats?.playerOne?.name
