@@ -15,8 +15,13 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${googleApiKey}" />
-
+        <meta-data
+            android:name="org.newsapi.API_KEY"
+            android:value="${newsApiKey}" />
         <activity android:name=".MainActivity">
+            <meta-data
+                android:name="org.newsapi.API_KEY"
+                android:value="${newsApiKey}" />
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER"/>
                 <action android:name="android.intent.action.MAIN"/>

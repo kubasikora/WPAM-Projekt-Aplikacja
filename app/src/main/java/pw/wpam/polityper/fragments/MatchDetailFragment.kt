@@ -21,6 +21,8 @@ import pw.wpam.polityper.adapters.ViewPageAdapter
 import pw.wpam.polityper.services.BetService
 import pw.wpam.polityper.models.MatchStats
 import com.google.android.gms.maps.GoogleMap.MAP_TYPE_HYBRID
+import pw.wpam.polityper.services.NewsService
+import java.net.URLEncoder
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -49,6 +51,11 @@ class MatchDetailFragment : Fragment(), OnMapReadyCallback {
 
         view.loadingSpinner.isVisible = true
         BetService.getMatchStatistics(matchId!!) { success, stats: MatchStats? ->
+            val query = URLEncoder.encode(stats?.playerOne?.name + " vs " + stats?.playerTwo?.name)
+            NewsService.getNews(query) { success, news ->
+                Log.d("MATCH_DETAIL", news.toString())
+            }
+
             mStats = stats!!
 
             view.loadingSpinner.isVisible = false
